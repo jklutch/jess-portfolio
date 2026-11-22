@@ -182,44 +182,55 @@ export const projects: Project[] = [
     kicker: 'Workforce tools',
     org: 'Minnesota DCYF, DHS & MNIT',
     timeframe: 'Completed 2026',
-    status: 'Available statewide. The project wrapped up in 2026 after 25 sprints.',
+    status: 'Available statewide. Finalist for the 2026 Optimal Experience Award for Research for Social Good.',
     summary:
-      'A new web app that replaced one of the most time-consuming tasks in SSIS, Minnesota’s 25-year-old child welfare system: entering time. Social workers now report saving two to five hours a week.',
+      'A mobile-first web app that replaced the slow, crash-prone case notes and time tracking in SSIS for Minnesota’s child welfare workers. Workers save about three hours a week, time they can spend with children and families.',
     role: 'Solo UX designer',
     tags: ['Agile', 'Usability testing', 'WCAG 2.1 AA', 'Field work', 'Lo-fi prototypes', 'Co-design', 'Mobile'],
     color: 'mint',
     icon: 'clock',
-    thumb: { src: img('time-entry-thumb.webp'), alt: '', width: 640, height: 439 },
+    thumb: { src: img('time-entry-thumb.webp'), alt: '', width: 640, height: 360 },
     hero: {
-      src: img('time-entry-hero.webp'),
-      alt: 'The Time Entry web app’s Activity Log on a laptop. Totals at the top read 176 hours overall and 3 hours 15 minutes in the current view, above a searchable, filterable grid of time records with columns for service, hours, activity, regarding, and purpose.',
-      width: 860,
-      height: 590,
+      src: img('time-entry-feature.webp'),
+      alt: 'A social worker wearing a name badge smiles while talking with a young girl and her mother on a couch. In the foreground, a phone shows the SSIS Time entry screen with Date, Time, and Active efforts fields. The Minnesota state logo is in the corner.',
+      width: 1400,
+      height: 788,
     },
     stats: [
-      { value: '2–5 hrs', label: 'saved each week by social workers using the new tool' },
-      { value: '25', label: 'sprints, each shared in a public sprint review' },
-      { value: '17', label: 'county workers at 13 agencies in one round of user acceptance testing' },
+      { value: '75+', label: 'child welfare workers in interviews, usability tests, and on-site observations' },
+      { value: '~3 hrs', label: 'saved per worker each week' },
+      { value: '180,000', label: 'hours a year back for supporting children and families' },
     ],
     sections: [
       {
         heading: 'The problem',
         body: [
-          'County social workers, case aides, and clerical, fiscal, and licensing staff use the Social Service Information System (SSIS) for everything from intake and screening to maltreatment investigations, out-of-home placement, and foster care licensing. They also use it to record their time, every day.',
-          'The child welfare part of SSIS has been in place for more than 25 years, and time entry was one of its most time-consuming functions. Child welfare work rarely happens in neat blocks of time. Days are full of short tasks, interruptions, and urgent needs, but tracking time relied on manual calculations, and workers had no clear view of where their time went. Every minute spent on paperwork was a minute not spent with children and families.',
+          'Child welfare workers in Minnesota’s counties and Tribal Nations rely on the Social Service Information System (SSIS) to document their work with children and families. But the aging, Windows-based application had become slow, prone to crashes, and limited to Windows devices.',
+          'Workers improvised: drafting case notes in Word, re-entering work after system failures, and doing manual math to track their time. Every hour lost to failing technology was an hour not spent serving children and families in crisis.',
         ],
       },
       {
         heading: 'Start where change is most urgent',
         body: [
-          'Rather than redesigning everything at once, the state focused on one area where workers said change was urgently needed. The result is a modern web app that securely connects to SSIS and replaces its time entry function with a faster, more reliable experience, including a mobile version so workers can enter time in the field.',
+          'Rather than wait years for a full replacement, the state focused on the part of SSIS workers said needed to change most. The project replaced the case notes and time tracking portion of the desktop system with a fast, accessible, responsive web app that securely connects to SSIS. Workers can now document from anywhere, on any device, in real time, without waiting to get back to the office.',
+        ],
+      },
+      {
+        heading: 'Research with workers, in the field',
+        body: [
+          'The work was grounded in human-centered design and ethical research. More than 75 child welfare workers took part in interviews, usability tests, and on-site observations, and we tested prototypes to learn which time-tracking changes would actually help. Using Optimal Workshop, we captured nearly 1,000 individual insights, a clear evidence base for every design decision.',
+          'Because child welfare work involves sensitive information, we protected participants throughout:',
+        ],
+        list: [
+          'Participation was voluntary, with research scheduled around workers’ caseloads',
+          'No personally identifiable information (PII) or protected health information (PHI) went into any research tool',
+          'Insights were stored without linking them to individual workers or families',
         ],
       },
       {
         heading: 'Built with the people who use it',
         body: [
-          'DCYF partnered closely with DHS, MNIT, counties, and frontline staff from the start. Workers tested early versions, shared feedback every two weeks, and saw that feedback shape each new iteration.',
-          'A public project site kept everyone in the loop. After every sprint, the product team posted a sprint review of what it set out to do and what actually happened. Workers could send ideas through a suggestion box, answer surveys, ask questions, and find training videos and job aids.',
+          'DCYF partnered closely with DHS, MNIT, counties, and frontline staff from the start. Workers tested early versions, shared feedback every two weeks, and saw that feedback shape each iteration. A public project site posted a review after every sprint and gave workers a suggestion box, surveys, a place for questions, and training videos.',
           'In one round of user acceptance testing, 17 county workers from 13 agencies tested the new Activity Log. Their feedback led to changes before the statewide release, including:',
         ],
         list: [
@@ -237,19 +248,34 @@ export const projects: Project[] = [
       {
         heading: 'What shipped',
         body: [
-          'Suggestion box feedback showed the need for a clearer way to track time without manual math. The web app lets workers see how their time is spent, so gaps are easy to find and fix. The time entry fields stayed familiar, while refinements to the form and the new Activity Log made entries easier to review and keep accurate.',
+          'Workers didn’t want to reinvent their workflows. They wanted reliable technology that supported the way they already worked. So we kept familiar fields and processes and modernized everything behind them.',
         ],
         list: [
-          'An Activity Log landing page to view, sort, and search time records from the web app or SSIS',
-          'Draft entries that can be created, saved, edited, or discarded before submitting',
-          'Editing of entries already submitted through the web app',
-          'A Case Load button to add time records to another worker’s caseload, the final enhancement',
+          'Login simplified from three screens to one',
+          'No more typing delays or crashes',
+          'Autosave and drafts, so work is never lost',
+          'A responsive, mobile-first design for use anywhere, including in the field',
+          'Improved accessibility for all workers',
+          'An Activity Log to view, sort, and search time records from the web app or SSIS, with running totals so gaps are easy to spot',
+          'Editing of submitted entries, plus a Case Load button to add time to another worker’s caseload',
+        ],
+        images: [
+          {
+            src: img('time-entry-hero.webp'),
+            alt: 'The Time Entry web app’s Activity Log on a laptop. Totals at the top read 176 hours overall and 3 hours 15 minutes in the current view, above a searchable, filterable grid of time records with columns for service, hours, activity, regarding, and purpose.',
+            width: 860,
+            height: 590,
+            caption: 'The Activity Log on desktop',
+          },
         ],
       },
       {
         heading: 'Results',
-        body: [
-          'Social workers using the new system report saving two to five hours each week. That time helps reduce stress, supports a more sustainable workload, and gives people a better chance of working reasonable hours in a demanding field. The web app is now available statewide, with training materials and job aids for every worker.',
+        list: [
+          'More than 1,150 agency workers have access to the tool',
+          'More than 650 workers across 80 agencies have submitted over 11,575 records',
+          'Strong mobile use shows workers are using it in the office and in the field',
+          'Workers report saving about three hours a week (two to five, depending on the worker). Across 1,150 workers, that’s almost 180,000 hours a year back for children and families',
         ],
         quote: {
           text: 'I’ve loved having a web-based version, and it has already started to save time in my day.',
@@ -257,9 +283,15 @@ export const projects: Project[] = [
         },
       },
       {
+        heading: 'National recognition',
+        body: [
+          'The project’s research earned Minnesota a spot as a finalist for the Optimal Experience Award for Research for Social Good, an international award for projects that protect research participants and deliver better outcomes. Judges praised the team for protecting participants’ sensitive information and putting its findings to work for child welfare workers.',
+        ],
+      },
+      {
         heading: 'A new way of working',
         body: [
-          'Time Entry Transformation was an early step in modernizing Minnesota’s child welfare technology, ahead of a new Comprehensive Child Welfare Information System that will replace the child welfare portion of SSIS. Just as importantly, it set a new way of working: listening, learning, and improving alongside users. It wasn’t always polished, but it delivered value faster and built trust along the way.',
+          'Time Entry Transformation gives workers relief today while Minnesota builds its new Comprehensive Child Welfare Information System. The research methods, designs, and worker feedback behind it will shape that larger effort, so the future of child welfare technology is built with workers, not just for them. It wasn’t always polished, but it delivered value faster and built trust along the way.',
         ],
         quotes: [
           {
@@ -274,10 +306,11 @@ export const projects: Project[] = [
       },
     ],
     links: [
+      { label: 'MNIT: Modernizing case notes and time-tracking for Minnesota’s child welfare workforce', href: 'https://mn.gov/mnit/media/blog/?id=38-768242' },
       { label: 'Watch a training video: Using the Activity Log', href: 'https://minnesotadcyf.us.engagementhq.com/time-entry-transformation/widgets/106977/videos/7115' },
       { label: 'Project site with sprint reviews and worker feedback', href: 'https://minnesotadcyf.us.engagementhq.com/time-entry-transformation' },
       { label: 'DCYF news: How DCYF modernized a key tool to support child welfare workers', href: 'https://dcyf.mn.gov/news/how-dcyf-modernized-key-tool-support-child-welfare-workers' },
-      { label: 'DCYF: Time Entry Transformation', href: 'https://dcyf.mn.gov/time-entry-transformation' },
+      { label: 'Optimal Experience Awards 2026 winners and finalists', href: 'https://www.optimalworkshop.com/blog/announcing-the-winners-of-the-2026-optimal-experience-awards' },
     ],
   },
   {

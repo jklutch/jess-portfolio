@@ -57,6 +57,10 @@ try {
         await page.$$eval('details', (ds) => ds.forEach((d) => (d.open = true)))
         await scan(page, `#${tab}`)
       }
+      // Intro with the progressive-disclosure panel open
+      await page.goto(`${BASE}#work`)
+      await page.getByRole('button', { name: 'Education, certification & skills' }).click()
+      await scan(page, 'intro with details expanded')
       // Every project detail page
       for (const slug of SLUGS) {
         await page.goto(`${BASE}#work/${slug}`)
@@ -115,6 +119,21 @@ try {
     sel?.trim() === 'Art' ? console.log('  ✓ arrow keys move between tabs') : fail(`arrow key selected "${sel}"`)
     const hash = new URL(page.url()).hash
     hash === '#art' ? console.log('  ✓ selected tab is reflected in the URL') : fail(`hash is ${hash}`)
+    // Progressive disclosure in the intro
+    await page.goto(`${BASE}#work`)
+    const toggle = page.getByRole('button', { name: 'Education, certification & skills' })
+    const before = await toggle.getAttribute('aria-expanded')
+    const hiddenBefore = await page.locator('#intro-more').isHidden()
+    await toggle.focus()
+    await page.keyboard.press('Enter')
+    const after = await toggle.getAttribute('aria-expanded')
+    const visibleAfter = await page.locator('#intro-more').isVisible()
+    await page.keyboard.press('Space')
+    const collapsed = await toggle.getAttribute('aria-expanded')
+    before === 'false' && hiddenBefore && after === 'true' && visibleAfter && collapsed === 'false'
+      ? console.log('  ✓ details toggle works with Enter and Space and reports aria-expanded')
+      : fail(`details toggle: before=${before} hidden=${hiddenBefore} after=${after} visible=${visibleAfter} collapsed=${collapsed}`)
+
     // Project pages: opening one focuses its heading; going back focuses the card link again
     await page.goto(`${BASE}#work`)
     await page.locator(`[data-project-link="${SLUGS[0]}"]`).click()

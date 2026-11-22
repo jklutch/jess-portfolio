@@ -1,4 +1,4 @@
-import { BadgeCheck, Brush, BriefcaseBusiness, GraduationCap, Mail, Sparkles } from 'lucide-react'
+import { BadgeCheck, Brush, BriefcaseBusiness, ChevronDown, GraduationCap, Mail, Sparkles } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ArtTab } from '@/components/art-tab'
@@ -42,6 +42,7 @@ export default function App() {
   const [route, setRoute] = useState<Route>(routeFromHash)
   const { tab, project } = route
   const lastProject = useRef<string | undefined>(undefined)
+  const [moreOpen, setMoreOpen] = useState(false)
 
   // Keep the view in the URL so every tab and project is linkable and
   // the browser back button works as people expect.
@@ -150,45 +151,65 @@ export default function App() {
               </span>
             </p>
 
-            <ul className="space-y-2.5 pt-1 text-sm" role="list" aria-label="Experience and credentials">
-              <li className="flex items-start gap-2">
-                <BriefcaseBusiness aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>
-                  <span className="sr-only">Currently: </span>
-                  <strong>{profile.employment.title}</strong>, {profile.employment.org}
-                  <span className="text-muted-foreground"> · {profile.employment.detail}</span>
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <GraduationCap aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>{profile.education}</span>
-              </li>
-              {profile.certifications.map((c) => (
-                <li key={c.short} className="flex items-start gap-2">
-                  <BadgeCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
-                  <span>
-                    <a
-                      href={c.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded font-semibold underline decoration-2 underline-offset-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-ring"
-                    >
-                      {c.short}
-                      <span className="sr-only"> (opens in a new tab)</span>
-                    </a>
-                    <span className="text-muted-foreground"> · {c.name}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <p className="flex items-start gap-2 pt-1 text-sm">
+              <BriefcaseBusiness aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+              <span>
+                <span className="sr-only">Currently: </span>
+                <strong>{profile.employment.title}</strong>, {profile.employment.org}
+                <span className="text-muted-foreground"> · {profile.employment.detail}</span>
+              </span>
+            </p>
 
-            <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills">
-              {profile.skills.map((s, i) => (
-                <li key={s}>
-                  <Badge variant={(['sunny', 'mint', 'bubblegum'] as const)[i % 3]}>{s}</Badge>
-                </li>
-              ))}
-            </ul>
+            {/* Progressive disclosure: a real button with aria-expanded controls the panel,
+                so keyboard and screen reader users get the same show/hide as everyone else. */}
+            <div>
+              <button
+                type="button"
+                aria-expanded={moreOpen}
+                aria-controls="intro-more"
+                onClick={() => setMoreOpen((o) => !o)}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-input bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                Education, certification & skills
+                <ChevronDown
+                  aria-hidden="true"
+                  className={`size-4 text-primary transition-transform ${moreOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              <div id="intro-more" hidden={!moreOpen} className="mt-4 space-y-4 motion-safe:animate-pop-in">
+                <ul className="space-y-2.5 text-sm" role="list" aria-label="Education and certification">
+                  <li className="flex items-start gap-2">
+                    <GraduationCap aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+                    <span>{profile.education}</span>
+                  </li>
+                  {profile.certifications.map((c) => (
+                    <li key={c.short} className="flex items-start gap-2">
+                      <BadgeCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+                      <span>
+                        <a
+                          href={c.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded font-semibold underline decoration-2 underline-offset-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-ring"
+                        >
+                          {c.short}
+                          <span className="sr-only"> (opens in a new tab)</span>
+                        </a>
+                        <span className="text-muted-foreground"> · {c.name}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills">
+                  {profile.skills.map((s, i) => (
+                    <li key={s}>
+                      <Badge variant={(['sunny', 'mint', 'bubblegum'] as const)[i % 3]}>{s}</Badge>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           <div className="relative mx-auto w-full max-w-52 md:max-w-none">
             {/* Decorative confetti behind the photo */}
