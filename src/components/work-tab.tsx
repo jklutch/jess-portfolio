@@ -53,7 +53,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
         </CardContent>
         <CardFooter className="justify-between gap-4">
           <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills used">
-            {p.tags.map((t) => (
+            {p.tags.slice(0, 4).map((t) => (
               <li key={t}>
                 <Badge variant={badgeVariant[p.color]}>{t}</Badge>
               </li>
