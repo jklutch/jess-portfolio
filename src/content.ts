@@ -13,7 +13,16 @@ export const profile = {
   name: 'Jess Klutch',
   shortName: 'Jess',
   role: 'Public Sector UX Designer',
-  tagline: 'I design public services that are clear, accessible, and built with the people who use them.',
+  /** Tagline in pieces; `highlight: true` pieces get the marker-style highlight. */
+  tagline: [
+    { text: 'I design public services that are ' },
+    { text: 'clear', highlight: true },
+    { text: ', ' },
+    { text: 'accessible', highlight: true },
+    { text: ', and ' },
+    { text: 'built with the people who use them', highlight: true },
+    { text: '.' },
+  ],
   skills: ['Design thinking', 'Iterative prototyping', 'Usability testing', 'Business & developer diplomat', 'HTML & CSS', 'Accessibility'],
   employment: {
     title: 'Digital Experience Product Designer',

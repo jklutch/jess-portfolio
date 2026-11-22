@@ -50,7 +50,7 @@ try {
       const ctx = await browser.newContext({ colorScheme, viewport, reducedMotion: 'reduce' })
       const page = await ctx.newPage()
       console.log(`\n${colorScheme} @ ${viewport.width}px`)
-      for (const tab of ['work', 'art', 'contact']) {
+      for (const tab of ['work', 'knits', 'contact']) {
         await page.goto(`${BASE}#${tab}`)
         await page.waitForSelector(`[data-tab=${tab}][data-state=active] h2`)
         // open the disclosure widgets so their content is scanned too
@@ -86,7 +86,7 @@ try {
     const page = await ctx.newPage()
     // Run twice: as-is, and with text ~5% wider to stand in for wider fallback fonts on other machines.
     for (const wide of [false, true]) {
-    for (const tab of ['work', 'art', 'contact', ...SLUGS.map((s) => `work/${s}`)]) {
+    for (const tab of ['work', 'knits', 'contact', ...SLUGS.map((s) => `work/${s}`)]) {
       await page.goto(`${BASE}#${tab}`)
       if (wide) await page.addStyleTag({ content: '*{letter-spacing:0.03em !important}' })
       await page.waitForTimeout(50)
@@ -114,11 +114,11 @@ try {
     skip?.includes('Skip to main content') ? console.log('  ✓ skip link is first focusable') : fail('skip link is not first')
     await page.getByRole('tab', { name: 'Work' }).focus()
     await page.keyboard.press('ArrowRight')
-    await page.waitForFunction(() => location.hash === '#art', null, { timeout: 3000 }).catch(() => {})
+    await page.waitForFunction(() => location.hash === '#knits', null, { timeout: 3000 }).catch(() => {})
     const sel = await page.getByRole('tab', { selected: true }).textContent()
-    sel?.trim() === 'Art' ? console.log('  ✓ arrow keys move between tabs') : fail(`arrow key selected "${sel}"`)
+    sel?.trim() === 'Knits' ? console.log('  ✓ arrow keys move between tabs') : fail(`arrow key selected "${sel}"`)
     const hash = new URL(page.url()).hash
-    hash === '#art' ? console.log('  ✓ selected tab is reflected in the URL') : fail(`hash is ${hash}`)
+    hash === '#knits' ? console.log('  ✓ selected tab is reflected in the URL') : fail(`hash is ${hash}`)
     // Progressive disclosure in the intro
     await page.goto(`${BASE}#work`)
     const toggle = page.getByRole('button', { name: 'Education, certification & skills' })

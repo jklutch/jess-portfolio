@@ -1,7 +1,7 @@
-import { BadgeCheck, Brush, BriefcaseBusiness, ChevronDown, GraduationCap, Mail, Sparkles } from 'lucide-react'
+import { BadgeCheck, BriefcaseBusiness, ChevronDown, GraduationCap, Mail, Shirt } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ArtTab } from '@/components/art-tab'
+import { KnitsTab } from '@/components/knits-tab'
 import { ContactTab } from '@/components/contact-tab'
 import { Badge } from '@/components/ui/badge'
 import { ProjectPage } from '@/components/project-page'
@@ -24,15 +24,16 @@ function Sparkle({ className }: { className?: string }) {
   )
 }
 
-const TABS = ['work', 'art', 'contact'] as const
+const TABS = ['work', 'knits', 'contact'] as const
 type Tab = (typeof TABS)[number]
-const LABELS: Record<Tab, string> = { work: 'Work', art: 'Art', contact: 'Contact' }
+const LABELS: Record<Tab, string> = { work: 'Work', knits: 'Knits', contact: 'Contact' }
 
 type Route = { tab: Tab; project?: (typeof projects)[number] }
 
-/** Routes: #work, #art, #contact, and #work/<project-slug> for project pages. */
+/** Routes: #work, #knits, #contact, and #work/<project-slug> for project pages. (#art still works.) */
 function routeFromHash(): Route {
-  const [first, slug] = window.location.hash.slice(1).split('/')
+  const [rawFirst, slug] = window.location.hash.slice(1).split('/')
+  const first = rawFirst === 'art' ? 'knits' : rawFirst // old links
   const tab = (TABS as readonly string[]).includes(first) ? (first as Tab) : 'work'
   const project = tab === 'work' && slug ? projects.find((p) => p.slug === slug) : undefined
   return { tab, project }
@@ -114,10 +115,6 @@ export default function App() {
           className="grid items-center gap-10 py-10 sm:py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]"
         >
           <div className="max-w-2xl space-y-6">
-            <p className="inline-flex items-center gap-2 rounded-full border-2 bg-card px-3 py-0.5 text-sm font-semibold">
-              <Sparkles aria-hidden="true" className="size-4 text-primary hover:animate-wiggle" />
-              {profile.role}
-            </p>
             <h1 id="intro-heading" className="relative w-fit text-4xl leading-tight font-extrabold sm:text-6xl">
               Hi, I’m{' '}
               <span className="relative inline-block">
@@ -146,9 +143,18 @@ export default function App() {
               <Sparkle className="absolute -right-4 bottom-1 hidden size-4 text-accent sm:block" />
             </h1>
             <p className="font-display text-xl leading-snug font-bold sm:text-2xl">
-              <span className="box-decoration-clone bg-[linear-gradient(transparent_55%,var(--highlight)_55%)] px-1">
-                {profile.tagline}
-              </span>
+              {profile.tagline.map((part, i) =>
+                'highlight' in part && part.highlight ? (
+                  <span
+                    key={i}
+                    className="box-decoration-clone bg-[linear-gradient(transparent_55%,var(--highlight)_55%)] px-0.5"
+                  >
+                    {part.text}
+                  </span>
+                ) : (
+                  <span key={i}>{part.text}</span>
+                ),
+              )}
             </p>
 
             <p className="flex items-start gap-2 pt-1 text-sm">
@@ -226,7 +232,7 @@ export default function App() {
               className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[6px_6px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
             />
             <a
-              href="#art"
+              href="#knits"
               className="absolute -right-2 -bottom-4 inline-flex -rotate-6 items-center gap-1.5 rounded-full border-2 border-border bg-secondary px-3.5 py-1.5 text-sm font-bold text-secondary-foreground shadow-[3px_3px_0_0_var(--shadow-pop)] outline-none transition-transform hover:rotate-0 focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Also knits! <span aria-hidden="true">🧶</span>
@@ -241,9 +247,9 @@ export default function App() {
                 <BriefcaseBusiness aria-hidden="true" />
                 Work
               </TabsTrigger>
-              <TabsTrigger value="art">
-                <Brush aria-hidden="true" />
-                Art
+              <TabsTrigger value="knits">
+                <Shirt aria-hidden="true" />
+                Knits
               </TabsTrigger>
               <TabsTrigger value="contact">
                 <Mail aria-hidden="true" />
@@ -253,8 +259,8 @@ export default function App() {
             <TabsContent value="work" data-tab="work">
               <WorkTab />
             </TabsContent>
-            <TabsContent value="art" data-tab="art">
-              <ArtTab />
+            <TabsContent value="knits" data-tab="knits">
+              <KnitsTab />
             </TabsContent>
             <TabsContent value="contact" data-tab="contact">
               <ContactTab />
