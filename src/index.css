@@ -109,6 +109,9 @@
   h3 {
     @apply font-display;
     text-wrap: balance;
+    /* Long words (e.g. "Transformation") must never push the page sideways on small screens. */
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
   a {
     text-underline-offset: 0.2em;

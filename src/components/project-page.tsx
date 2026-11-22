@@ -78,7 +78,7 @@ export function ProjectPage({ project: p }: { project: Project }) {
           id="project-title"
           ref={headingRef}
           tabIndex={-1}
-          className="text-4xl leading-tight font-extrabold outline-none sm:text-5xl"
+          className="text-4xl leading-tight font-extrabold [overflow-wrap:anywhere] hyphens-auto outline-none sm:text-5xl"
         >
           {p.title}
         </h1>

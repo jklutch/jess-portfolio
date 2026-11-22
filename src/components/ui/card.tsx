@@ -20,7 +20,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<'h3'>) {
-  return <h3 data-slot="card-title" className={cn('font-display text-xl font-bold leading-tight', className)} {...props} />
+  return <h3 data-slot="card-title" className={cn('font-display text-xl font-bold leading-tight [overflow-wrap:anywhere] hyphens-auto', className)} {...props} />
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<'p'>) {
