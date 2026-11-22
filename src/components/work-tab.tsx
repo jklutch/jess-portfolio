@@ -1,86 +1,99 @@
-import { FileText, MapPinned, MessageCircle, ShieldCheck } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
+import { badgeVariant, bandClass, projectHref, projectIcons } from '@/components/project-meta'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { projects, type Project } from '@/content'
+import { groups, projects, type Project } from '@/content'
 import { cn } from '@/lib/utils'
 
-const icons = { form: FileText, map: MapPinned, phone: MessageCircle, shield: ShieldCheck }
-
-const bands: Record<Project['color'], string> = {
-  sunny: 'bg-secondary text-secondary-foreground',
-  mint: 'bg-accent text-accent-foreground',
-  bubblegum: 'bg-pink text-pink-foreground',
-  grape: 'bg-primary text-primary-foreground',
+function ProjectCard({ p, index }: { p: Project; index: number }) {
+  const Icon = projectIcons[p.icon]
+  return (
+    <li className="motion-safe:animate-pop-in" style={{ animationDelay: `${index * 50}ms` }}>
+      {/* The title link stretches over the whole card, so the card is one big target
+          but screen readers hear a single, clearly named link. */}
+      <Card className="group relative h-full overflow-hidden pt-0 transition-[transform,box-shadow] focus-within:ring-[3px] focus-within:ring-ring focus-within:ring-offset-4 focus-within:ring-offset-background motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[8px_10px_0_0_var(--shadow-pop)]">
+        {p.thumb ? (
+          <div className={cn('relative border-b-2', bandClass[p.color])}>
+            <img
+              src={p.thumb.src}
+              alt={p.thumb.alt}
+              width={p.thumb.width}
+              height={p.thumb.height}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[16/9] w-full object-cover object-top"
+            />
+            <span className={cn('absolute top-3 left-3 rounded-full border-2 p-2', bandClass[p.color])}>
+              <Icon aria-hidden="true" className="size-5" />
+            </span>
+          </div>
+        ) : (
+          <div className={cn('flex aspect-[16/9] items-center justify-center border-b-2', bandClass[p.color])}>
+            <Icon aria-hidden="true" className="size-16 stroke-[1.5] motion-safe:group-hover:animate-wiggle" />
+          </div>
+        )}
+        <CardHeader>
+          <p className="text-sm font-semibold">
+            {p.kicker} · {p.timeframe}
+          </p>
+          <CardTitle>
+            <a
+              href={projectHref(p.slug)}
+              data-project-link={p.slug}
+              className="outline-none after:absolute after:inset-0 after:rounded-3xl after:content-[''] hover:underline hover:decoration-2"
+            >
+              {p.title}
+            </a>
+          </CardTitle>
+          <CardDescription>{p.org}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>{p.summary}</p>
+        </CardContent>
+        <CardFooter className="justify-between gap-4">
+          <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills used">
+            {p.tags.slice(0, 3).map((t) => (
+              <li key={t}>
+                <Badge variant={badgeVariant[p.color]}>{t}</Badge>
+              </li>
+            ))}
+          </ul>
+          <span aria-hidden="true" className="inline-flex items-center gap-1 text-sm font-bold text-primary">
+            Read more <ArrowRight className="size-4 transition-transform motion-safe:group-hover:translate-x-1" />
+          </span>
+        </CardFooter>
+      </Card>
+    </li>
+  )
 }
 
-const badgeFor: Record<Project['color'], 'sunny' | 'mint' | 'bubblegum' | 'default'> = {
-  sunny: 'sunny',
-  mint: 'mint',
-  bubblegum: 'bubblegum',
-  grape: 'default',
+function ProjectGroup({ group }: { group: Project['group'] }) {
+  const { heading, description } = groups[group]
+  const list = projects.filter((p) => p.group === group)
+  const id = `${group}-heading`
+  return (
+    <section aria-labelledby={id} className="space-y-6">
+      <div className="max-w-2xl space-y-2">
+        <h2 id={id} className="text-3xl font-bold sm:text-4xl">
+          {heading}
+        </h2>
+        <p className="text-lg text-muted-foreground">{description}</p>
+      </div>
+      <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list">
+        {list.map((p, i) => (
+          <ProjectCard key={p.slug} p={p} index={i} />
+        ))}
+      </ul>
+    </section>
+  )
 }
 
 export function WorkTab() {
   return (
-    <section aria-labelledby="work-heading" className="space-y-6">
-      <div className="max-w-2xl space-y-2">
-        <h2 id="work-heading" className="text-3xl font-bold sm:text-4xl">
-          Selected work
-        </h2>
-        <p className="text-lg text-muted-foreground">
-          A few projects where research, plain language, and accessibility helped people get what they needed from
-          government.
-        </p>
-      </div>
-
-      <ul className="grid gap-6 md:grid-cols-2" role="list">
-        {projects.map((p, i) => {
-          const Icon = icons[p.icon]
-          return (
-            <li key={p.title} className="motion-safe:animate-pop-in" style={{ animationDelay: `${i * 60}ms` }}>
-              <Card className="h-full overflow-hidden pt-0">
-                <div className={cn('flex items-center justify-between border-b-2 px-6 py-4', bands[p.color])}>
-                  <Icon aria-hidden="true" className="size-7" />
-                  <p className="text-sm font-semibold">{p.year}</p>
-                </div>
-                <CardHeader>
-                  <CardTitle>{p.title}</CardTitle>
-                  <CardDescription>
-                    {p.org} · {p.role}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p>{p.summary}</p>
-                  <p className="flex items-baseline gap-2 rounded-2xl bg-muted px-4 py-3">
-                    <span className="font-display text-3xl font-extrabold text-primary">{p.outcome.value}</span>
-                    <span className="text-sm font-medium">{p.outcome.label}</span>
-                  </p>
-                  <details className="group rounded-2xl border-2 border-input px-4 py-2 [&[open]]:pb-4">
-                    <summary className="cursor-pointer rounded-lg py-1 font-semibold outline-none focus-visible:ring-[3px] focus-visible:ring-ring">
-                      How I did it
-                    </summary>
-                    <ul className="mt-2 list-disc space-y-1.5 pl-5">
-                      {p.highlights.map((h) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-                  </details>
-                </CardContent>
-                <CardFooter>
-                  <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills used">
-                    {p.tags.map((t) => (
-                      <li key={t}>
-                        <Badge variant={badgeFor[p.color]}>{t}</Badge>
-                      </li>
-                    ))}
-                  </ul>
-                </CardFooter>
-              </Card>
-            </li>
-          )
-        })}
-      </ul>
-    </section>
+    <div className="space-y-16">
+      <ProjectGroup group="public" />
+      <ProjectGroup group="school" />
+    </div>
   )
 }

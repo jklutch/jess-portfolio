@@ -1,43 +1,68 @@
-import { Brush, BriefcaseBusiness, Mail, Sparkles } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Brush, BriefcaseBusiness, GraduationCap, Mail, Sparkles } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 
 import { ArtTab } from '@/components/art-tab'
 import { ContactTab } from '@/components/contact-tab'
+import { ProjectPage } from '@/components/project-page'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { WorkTab } from '@/components/work-tab'
-import { profile } from '@/content'
+import { profile, projects } from '@/content'
 
 const TABS = ['work', 'art', 'contact'] as const
 type Tab = (typeof TABS)[number]
 const LABELS: Record<Tab, string> = { work: 'Work', art: 'Art', contact: 'Contact' }
 
-function tabFromHash(): Tab {
-  const h = window.location.hash.slice(1)
-  return (TABS as readonly string[]).includes(h) ? (h as Tab) : 'work'
+type Route = { tab: Tab; project?: (typeof projects)[number] }
+
+/** Routes: #work, #art, #contact, and #work/<project-slug> for project pages. */
+function routeFromHash(): Route {
+  const [first, slug] = window.location.hash.slice(1).split('/')
+  const tab = (TABS as readonly string[]).includes(first) ? (first as Tab) : 'work'
+  const project = tab === 'work' && slug ? projects.find((p) => p.slug === slug) : undefined
+  return { tab, project }
 }
 
 const badgeCycle = ['sunny', 'mint', 'bubblegum'] as const
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>(tabFromHash)
+  const [route, setRoute] = useState<Route>(routeFromHash)
+  const { tab, project } = route
+  const lastProject = useRef<string | undefined>(undefined)
 
-  // Keep the selected tab in the URL so each section is linkable and
+  // Keep the view in the URL so every tab and project is linkable and
   // the browser back button works as people expect.
   useEffect(() => {
-    const onHash = () => setTab(tabFromHash())
+    const onHash = () => setRoute(routeFromHash())
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
   useEffect(() => {
-    document.title = `${LABELS[tab]} · ${profile.name}, ${profile.role}`
-  }, [tab])
+    document.title = project
+      ? `${project.title} · ${profile.name}`
+      : `${LABELS[tab]} · ${profile.name}, ${profile.role}`
+  }, [tab, project])
+
+  // When returning from a project page, put focus back on that project's card link.
+  useEffect(() => {
+    if (project) {
+      lastProject.current = project.slug
+    } else if (lastProject.current) {
+      const slug = lastProject.current
+      lastProject.current = undefined
+      requestAnimationFrame(() => {
+        const link = document.querySelector<HTMLElement>(`[data-project-link="${slug}"]`)
+        link?.focus({ preventScroll: true })
+        link?.closest('li')?.scrollIntoView({ block: 'center' })
+      })
+    }
+  }, [project])
 
   function changeTab(value: string) {
     const next = value as Tab
-    setTab(next)
+    setRoute({ tab: next })
     if (window.location.hash.slice(1) !== next) history.pushState(null, '', `#${next}`)
   }
 
@@ -52,15 +77,25 @@ export default function App() {
 
       <div className="mx-auto flex min-h-dvh max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between gap-4 py-6">
-          <p className="font-display text-2xl font-extrabold tracking-tight">
+          <a
+            href="#work"
+            aria-label={`${profile.name}, home`}
+            className="rounded-2xl font-display text-2xl font-extrabold tracking-tight outline-none focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          >
             <span className="mr-1 inline-block rounded-2xl bg-coral px-2.5 py-0.5 text-foreground ring-2 ring-foreground dark:text-background">
               J
             </span>
             ess<span className="text-primary">.</span>
-          </p>
+          </a>
           <ThemeToggle />
         </header>
 
+        {project ? (
+          <main id="main" tabIndex={-1} className="flex-1 py-6 outline-none">
+            <ProjectPage project={project} />
+          </main>
+        ) : (
+          <>
         <section aria-labelledby="intro-heading" className="relative py-8 sm:py-14">
           <div
             aria-hidden="true"
@@ -80,7 +115,7 @@ export default function App() {
               {profile.role}
             </p>
             <h1 id="intro-heading" className="text-5xl leading-[1.05] font-extrabold sm:text-7xl">
-              Hi, I’m {profile.name}!
+              Hi, I’m {profile.shortName}!
             </h1>
             <p className="max-w-3xl font-display text-2xl leading-snug font-bold sm:text-3xl">
               <span className="box-decoration-clone bg-[linear-gradient(transparent_55%,var(--highlight)_55%)] px-1">
@@ -88,6 +123,10 @@ export default function App() {
               </span>
             </p>
             <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">{profile.intro}</p>
+            <p className="inline-flex items-center gap-2 font-semibold">
+              <GraduationCap aria-hidden="true" className="size-5 text-primary" />
+              {profile.education}
+            </p>
             <ul className="flex flex-wrap gap-2" role="list" aria-label="Areas of focus">
               {profile.skills.map((s, i) => (
                 <li key={s}>
@@ -116,17 +155,19 @@ export default function App() {
                 Contact
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="work">
+            <TabsContent value="work" data-tab="work">
               <WorkTab />
             </TabsContent>
-            <TabsContent value="art">
+            <TabsContent value="art" data-tab="art">
               <ArtTab />
             </TabsContent>
-            <TabsContent value="contact">
+            <TabsContent value="contact" data-tab="contact">
               <ContactTab />
             </TabsContent>
           </Tabs>
         </main>
+          </>
+        )}
 
         <footer className="border-t-2 border-dashed py-8 text-sm text-muted-foreground">
           <p>

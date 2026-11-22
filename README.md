@@ -3,15 +3,15 @@
 A small, playful, accessible portfolio site with **Work**, **Art**, and **Contact** tabs.
 
 - **Stack:** React + Vite + Tailwind CSS v4 + [shadcn/ui](https://ui.shadcn.com/) components (Tabs, Card, Button, Badge, Input, Textarea, Label)
-- **Lightweight:** no web fonts, no images (art is drawn with tiny inline SVGs), ~100 KB gzipped JS + ~6 KB CSS
+- **Lightweight:** no web fonts, ~110 KB gzipped JS + ~6 KB CSS, and lazy-loaded WebP images
 - **Theme:** “Confetti” — grape, sunshine, mint, and bubblegum on warm cream, with a dark mode that follows your system setting (and a toggle)
 
 ## Edit your content
 
-Everything you'll want to change lives in **`src/content.ts`**: your intro, skills, projects, artwork, and contact links.
-The sample projects and `hello@example.com` address are placeholders — swap in your own.
+Everything you'll want to change lives in **`src/content.ts`**: your intro, skills, projects (each gets its own page at `#work/<slug>`), knitting gallery, and contact links. Project images live in `public/img/projects/`.
 
-To use real artwork images, replace `<ArtPiece />` in `src/components/art-tab.tsx` with an `<img>` that has descriptive `alt` text.
+
+To add knitting projects, drop photos in `public/img/knitting/` and add entries to `artworks` with descriptive alt text.
 
 ## Run it
 

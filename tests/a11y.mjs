@@ -9,6 +9,10 @@
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 import { AxeBuilder } from '@axe-core/playwright'
+import { readFileSync } from 'node:fs'
+
+// Pull the project slugs out of the content file so every project page gets scanned.
+const SLUGS = [...readFileSync(new URL('../src/content.ts', import.meta.url), 'utf8').matchAll(/slug: '([^']+)'/g)].map((m) => m[1])
 
 const PORT = 4179
 const BASE = `http://localhost:${PORT}/`
@@ -48,10 +52,21 @@ try {
       console.log(`\n${colorScheme} @ ${viewport.width}px`)
       for (const tab of ['work', 'art', 'contact']) {
         await page.goto(`${BASE}#${tab}`)
-        await page.waitForSelector(`[role=tabpanel][data-state=active] #${tab}-heading`)
+        await page.waitForSelector(`[data-tab=${tab}][data-state=active] h2`)
         // open the disclosure widgets so their content is scanned too
         await page.$$eval('details', (ds) => ds.forEach((d) => (d.open = true)))
         await scan(page, `#${tab}`)
+      }
+      // Every project detail page
+      for (const slug of SLUGS) {
+        await page.goto(`${BASE}#work/${slug}`)
+        await page.waitForSelector('#project-title')
+        await page.evaluate(async () => {
+          // load lazy images so contrast checks see the final page
+          for (const img of document.images) img.loading = 'eager'
+          await Promise.all([...document.images].map((i) => (i.complete ? null : new Promise((r) => (i.onload = i.onerror = r)))))
+        })
+        await scan(page, `#work/${slug}`)
       }
       // Form error state
       await page.goto(`${BASE}#contact`)
@@ -65,8 +80,9 @@ try {
   {
     const ctx = await browser.newContext({ viewport: { width: 320, height: 640 } })
     const page = await ctx.newPage()
-    for (const tab of ['work', 'art', 'contact']) {
+    for (const tab of ['work', 'art', 'contact', ...SLUGS.map((s) => `work/${s}`)]) {
       await page.goto(`${BASE}#${tab}`)
+      await page.waitForTimeout(50)
       const overflow = await page.evaluate(() =>
         Math.max(
           document.documentElement.scrollWidth - window.innerWidth,
@@ -95,6 +111,19 @@ try {
     sel?.trim() === 'Art' ? console.log('  ✓ arrow keys move between tabs') : fail(`arrow key selected "${sel}"`)
     const hash = new URL(page.url()).hash
     hash === '#art' ? console.log('  ✓ selected tab is reflected in the URL') : fail(`hash is ${hash}`)
+    // Project pages: opening one focuses its heading; going back focuses the card link again
+    await page.goto(`${BASE}#work`)
+    await page.locator(`[data-project-link="${SLUGS[0]}"]`).click()
+    await page.waitForSelector('#project-title')
+    const h1Focused = await page.evaluate(() => document.activeElement?.id)
+    h1Focused === 'project-title' ? console.log('  ✓ opening a project moves focus to its heading') : fail(`focus on ${h1Focused}`)
+    const title = await page.title()
+    title.startsWith((await page.textContent('#project-title')).trim()) ? console.log('  ✓ page title names the project') : fail(`title is ${title}`)
+    await page.goBack()
+    await page.waitForTimeout(200)
+    const back = await page.evaluate(() => document.activeElement?.getAttribute('data-project-link'))
+    back === SLUGS[0] ? console.log('  ✓ going back returns focus to the project card') : fail(`focus after back on ${back}`)
+
     await page.goto(`${BASE}#contact`)
     await page.getByRole('button', { name: 'Send message' }).click()
     await page.waitForTimeout(100)
