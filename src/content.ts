@@ -15,7 +15,7 @@ export const profile = {
   role: 'Public Sector UX Designer',
   /** Tagline in pieces; `highlight: true` pieces get the marker-style highlight. */
   tagline: [
-    { text: 'I design public services that are ' },
+    { text: 'I design experiences that are ' },
     { text: 'clear', highlight: true },
     { text: ', ' },
     { text: 'accessible', highlight: true },
