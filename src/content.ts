@@ -14,6 +14,9 @@ export const profile = {
   shortName: 'Jess',
   role: 'Public Sector UX Designer',
   tagline: 'I design public services that are clear, accessible, and built with the people who use them.',
+  philosophy:
+    'The design process should be engaging and fun, and it should bring people together: teams across the organization, and the people who will use the final product or service.',
+  skills: ['Design thinking', 'Iterative prototyping', 'Usability testing', 'Business & developer diplomat', 'HTML & CSS', 'Accessibility'],
   employment: {
     title: 'Digital Experience Product Designer',
     org: 'State of Minnesota',
@@ -65,7 +68,7 @@ export type Project = {
   status?: string
   tags: string[]
   color: 'sunny' | 'mint' | 'bubblegum' | 'grape'
-  icon: 'tracker' | 'clock' | 'link' | 'mind' | 'ear' | 'bus' | 'film' | 'leaf' | 'mountain'
+  icon: 'tracker' | 'clock' | 'link' | 'mind' | 'ear' | 'bus' | 'film' | 'leaf' | 'mountain' | 'code'
   thumb?: Image
   hero?: Image
   stats?: { value: string; label: string }[]
@@ -807,6 +810,98 @@ export const projects: Project[] = [
       },
     ],
     links: [{ label: 'Original case study on jessklutch.com', href: 'https://jessklutch.com/work/organza.html' }],
+  },
+  {
+    slug: 'original-portfolio-site',
+    group: 'school',
+    title: 'My first portfolio site',
+    kicker: 'Front-end development',
+    org: 'Personal project during my M.S.',
+    timeframe: '2022 – 2023',
+    role: 'Designer and front-end developer',
+    tools: ['HTML', 'CSS', 'Bootstrap 5', 'Adobe Fonts'],
+    summary:
+      'I designed and hand-coded my original portfolio at jessklutch.com in HTML and CSS: a responsive, three-page site with its own documented design system.',
+    tags: ['HTML & CSS', 'Responsive design', 'Design systems', 'Bootstrap 5'],
+    color: 'bubblegum',
+    icon: 'code',
+    thumb: { src: img('jk-site-thumb.webp'), alt: '', width: 640, height: 375 },
+    hero: {
+      src: img('jk-site-hero.webp'),
+      alt: 'The jessklutch.com homepage on desktop: a red JK logo and teal Home, Work, and Contact navigation, the heading “Hi, I’m Jess.” in brick red, a short bio, a “View Work” link, and a hand-drawn watercolor self-portrait of Jess wearing glasses.',
+      width: 1400,
+      height: 820,
+    },
+    stats: [
+      { value: '3', label: 'responsive pages: Home, Work, and Contact' },
+      { value: '~6 KB', label: 'of custom CSS on top of Bootstrap' },
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        body: [
+          'I wanted a portfolio that I built myself, not a template. I designed the site, drew the self-portrait illustration and JK logo, and wrote the HTML and CSS by hand. The footer says it best: “Site built by yours truly.”',
+        ],
+      },
+      {
+        heading: 'Built with HTML and CSS',
+        list: [
+          'HTML pages for Home, Work, and Contact, with alt text on images',
+          'Bootstrap 5’s grid for responsive layouts, with a custom stylesheet for type, color, cards, buttons, and navigation',
+          'A navigation bar that collapses into a menu button on small screens, with ARIA attributes for the toggle',
+          'Adobe Fonts (Campaign for headings and navigation, Rubik for body text) and a palette of teal and brick red',
+          'Feature and project cards that rearrange from three columns on desktop to a single column on phones',
+        ],
+        images: [
+          {
+            src: img('jk-site-work.webp'),
+            alt: 'The Work page on desktop: a large “Work” heading, an intro about loving iterative projects and web development, and a rounded feature card for WellMind with a screenshot, a “Research & Design” label, a description, and a red View button, above a row of smaller project cards.',
+            width: 1400,
+            height: 900,
+            caption: 'The Work page on desktop',
+          },
+        ],
+      },
+      {
+        heading: 'Responsive on every screen',
+        body: ['On phones, the layout stacks into a single column and the navigation tucks behind a menu button.'],
+        images: [
+          {
+            src: img('jk-site-home-phone.webp'),
+            alt: 'The homepage on a phone: the JK logo with a menu button, the self-portrait illustration stacked above a large “Hi, I’m Jess.” heading.',
+            width: 600,
+            height: 1298,
+            caption: 'Homepage on a phone',
+          },
+          {
+            src: img('jk-site-work-phone.webp'),
+            alt: 'The Work page on a phone: the menu button, a large “Work” heading, the intro text, and the WellMind card stacked in one column.',
+            width: 600,
+            height: 1298,
+            caption: 'Work page on a phone',
+          },
+        ],
+      },
+      {
+        heading: 'A design system to keep it consistent',
+        body: [
+          'I documented the site in a small design system guided by three words: clean, legible, and inquisitive. It covers typography, color, and logo usage; buttons, cards, and the navigation menu, each with accessibility notes and HTML snippets; and page patterns with Bootstrap grids for different screen sizes.',
+        ],
+        images: [
+          {
+            src: img('jk-site-design-system.webp'),
+            alt: 'A layout spec from the design system: the desktop homepage with pixel spacing measurements, the logo, navigation, and illustration, plus tabs for web, tablet, and phone layouts and grids.',
+            width: 1400,
+            height: 978,
+            caption: 'Homepage layout spec from the design system',
+          },
+        ],
+      },
+    ],
+    links: [
+      { label: 'Visit jessklutch.com', href: 'https://jessklutch.com/' },
+      { label: 'View the design system', href: 'https://jessklutch.com/work/mini_design_system/index.html' },
+    ],
   },
 ]
 

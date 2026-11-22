@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { ArtTab } from '@/components/art-tab'
 import { ContactTab } from '@/components/contact-tab'
+import { Badge } from '@/components/ui/badge'
 import { ProjectPage } from '@/components/project-page'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -111,6 +112,11 @@ export default function App() {
               </span>
             </p>
 
+            <figure className="border-l-4 border-primary pl-4">
+              <figcaption className="text-xs font-bold tracking-wider text-primary uppercase">My philosophy</figcaption>
+              <blockquote className="mt-1 leading-relaxed text-muted-foreground sm:text-lg">{profile.philosophy}</blockquote>
+            </figure>
+
             <ul className="space-y-2.5 pt-1 text-sm" role="list" aria-label="Experience and credentials">
               <li className="flex items-start gap-2">
                 <BriefcaseBusiness aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
@@ -139,6 +145,14 @@ export default function App() {
                     </a>
                     <span className="text-muted-foreground"> · {c.name}</span>
                   </span>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills">
+              {profile.skills.map((s, i) => (
+                <li key={s}>
+                  <Badge variant={(['sunny', 'mint', 'bubblegum'] as const)[i % 3]}>{s}</Badge>
                 </li>
               ))}
             </ul>

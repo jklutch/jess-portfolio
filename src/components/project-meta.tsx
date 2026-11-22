@@ -8,6 +8,7 @@ import {
   Mountain,
 
   Brain,
+  Code,
   Unplug,
 } from 'lucide-react'
 
@@ -23,6 +24,7 @@ export const projectIcons = {
   film: Clapperboard,
   leaf: Leaf,
   mountain: Mountain,
+  code: Code,
 } satisfies Record<Project['icon'], unknown>
 
 export const bandClass: Record<Project['color'], string> = {
