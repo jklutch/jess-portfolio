@@ -15,7 +15,7 @@ export const profile = {
   role: 'Public Sector UX Designer',
   tagline: 'I design public services that are clear, accessible, and built with the people who use them.',
   intro:
-    'I’m a researcher, designer, and artist. My work explores how and why people use technology, and lately that means helping Minnesotans get to benefits and services with less waiting and less guesswork.',
+    'I’m a researcher, designer, and artist helping Minnesotans get to benefits and services with less waiting and less guesswork.',
   employment: {
     title: 'Digital Experience Product Designer',
     org: 'State of Minnesota',

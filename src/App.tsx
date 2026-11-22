@@ -98,83 +98,75 @@ export default function App() {
           <>
         <section
           aria-labelledby="intro-heading"
-          className="grid items-center gap-10 py-8 sm:py-14 md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]"
+          className="grid items-center gap-8 py-6 sm:py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]"
         >
-          <div className="relative max-w-3xl space-y-5">
-            <p className="inline-flex items-center gap-2 rounded-full border-2 bg-card px-4 py-1 text-sm font-semibold">
+          <div className="max-w-2xl space-y-4">
+            <p className="inline-flex items-center gap-2 rounded-full border-2 bg-card px-3 py-0.5 text-sm font-semibold">
               <Sparkles aria-hidden="true" className="size-4 text-primary hover:animate-wiggle" />
               {profile.role}
             </p>
-            <h1 id="intro-heading" className="text-5xl leading-[1.05] font-extrabold sm:text-7xl">
+            <h1 id="intro-heading" className="text-4xl leading-tight font-extrabold sm:text-6xl">
               Hi, I’m {profile.shortName}!
             </h1>
-            <p className="max-w-3xl font-display text-2xl leading-snug font-bold sm:text-3xl">
+            <p className="font-display text-xl leading-snug font-bold sm:text-2xl">
               <span className="box-decoration-clone bg-[linear-gradient(transparent_55%,var(--highlight)_55%)] px-1">
                 {profile.tagline}
               </span>
             </p>
-            <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">{profile.intro}</p>
-            <ul className="grid gap-3 sm:grid-cols-2" role="list" aria-label="Experience and credentials">
-              <li className="flex gap-3 rounded-2xl border-2 bg-card p-3 sm:col-span-2">
-                <span className="shrink-0 self-start rounded-full bg-secondary p-2 text-secondary-foreground">
-                  <BriefcaseBusiness aria-hidden="true" className="size-5" />
-                </span>
+            <p className="text-muted-foreground sm:text-lg">{profile.intro}</p>
+
+            <ul className="space-y-1.5 text-sm" role="list" aria-label="Experience and credentials">
+              <li className="flex items-start gap-2">
+                <BriefcaseBusiness aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
                 <span>
                   <span className="sr-only">Currently: </span>
-                  <span className="block font-bold">
-                    {profile.employment.title}, {profile.employment.org}
-                  </span>
-                  <span className="block text-sm text-muted-foreground">{profile.employment.detail}</span>
+                  <strong>{profile.employment.title}</strong>, {profile.employment.org}
+                  <span className="text-muted-foreground"> · {profile.employment.detail}</span>
                 </span>
               </li>
-              <li className="flex gap-3 rounded-2xl border-2 bg-card p-3">
-                <span className="shrink-0 self-start rounded-full bg-accent p-2 text-accent-foreground">
-                  <GraduationCap aria-hidden="true" className="size-5" />
-                </span>
-                <span className="self-center text-sm font-semibold">{profile.education}</span>
+              <li className="flex items-start gap-2">
+                <GraduationCap aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+                <span>{profile.education}</span>
               </li>
               {profile.certifications.map((c) => (
-                <li key={c.short} className="flex gap-3 rounded-2xl border-2 bg-card p-3">
-                  <span className="shrink-0 self-start rounded-full bg-pink p-2 text-pink-foreground">
-                    <BadgeCheck aria-hidden="true" className="size-5" />
-                  </span>
-                  <span className="self-center text-sm">
+                <li key={c.short} className="flex items-start gap-2">
+                  <BadgeCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+                  <span>
                     <a
                       href={c.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="font-bold underline decoration-2 underline-offset-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-ring"
+                      className="rounded font-semibold underline decoration-2 underline-offset-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-ring"
                     >
                       {c.short}
                       <span className="sr-only"> (opens in a new tab)</span>
                     </a>
-                    <span className="block text-muted-foreground">{c.name}</span>
+                    <span className="text-muted-foreground"> · {c.name}</span>
                   </span>
                 </li>
               ))}
             </ul>
-            <ul className="flex flex-wrap gap-2" role="list" aria-label="Areas of focus">
+
+            <ul className="flex flex-wrap gap-1.5" role="list" aria-label="Areas of focus">
               {profile.skills.map((s, i) => (
                 <li key={s}>
-                  <Badge variant={badgeCycle[i % badgeCycle.length]} className="px-3.5 py-1 text-sm">
-                    {s}
-                  </Badge>
+                  <Badge variant={badgeCycle[i % badgeCycle.length]}>{s}</Badge>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="relative mx-auto w-full max-w-64 md:max-w-none">
+          <div className="relative mx-auto w-full max-w-52 md:max-w-none">
             {/* Decorative confetti behind the photo */}
-            <div aria-hidden="true" className="absolute -top-5 -right-4 size-24 rounded-full bg-secondary" />
-            <div aria-hidden="true" className="absolute -bottom-4 -left-5 size-16 rotate-12 rounded-2xl bg-accent" />
-            <div aria-hidden="true" className="absolute top-1/3 -left-7 size-8 rounded-full bg-pink" />
+            <div aria-hidden="true" className="absolute -top-4 -right-3 size-20 rounded-full bg-secondary" />
+            <div aria-hidden="true" className="absolute -bottom-3 -left-4 size-12 rotate-12 rounded-2xl bg-accent" />
+            <div aria-hidden="true" className="absolute top-1/3 -left-6 size-7 rounded-full bg-pink" />
             <img
               src={profile.photo.src}
               alt={profile.photo.alt}
               width={profile.photo.width}
               height={profile.photo.height}
               fetchPriority="high"
-              className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[8px_8px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
+              className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[6px_6px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
             />
           </div>
         </section>
