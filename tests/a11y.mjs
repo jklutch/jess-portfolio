@@ -67,7 +67,14 @@ try {
     const page = await ctx.newPage()
     for (const tab of ['work', 'art', 'contact']) {
       await page.goto(`${BASE}#${tab}`)
-      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
+      const overflow = await page.evaluate(() =>
+        Math.max(
+          document.documentElement.scrollWidth - window.innerWidth,
+          ...[...document.querySelectorAll('main *, header *')]
+            .filter((el) => !el.closest('.sr-only') && !el.parentElement?.closest('svg'))
+            .map((el) => Math.ceil(el.getBoundingClientRect().right - (window.innerWidth - 16))),
+        ),
+      )
       overflow > 0 ? fail(`#${tab} scrolls horizontally by ${overflow}px`) : console.log(`  ✓ #${tab} no horizontal scroll`)
     }
     await ctx.close()
