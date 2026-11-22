@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * "Confetti" theme — playful, high-contrast tokens.
+ * Every text/background pairing below is checked for WCAG 2.1 AA
+ * (4.5:1 for text, 3:1 for UI component boundaries) by `npm run test:a11y`.
+ */
+:root {
+  --radius: 1rem;
+  --background: #fff9f0; /* warm cream */
+  --foreground: #24163a; /* deep plum */
+  --card: #ffffff;
+  --card-foreground: #24163a;
+  --primary: #5a2dc2; /* grape */
+  --primary-foreground: #ffffff;
+  --secondary: #ffd447; /* sunshine */
+  --secondary-foreground: #24163a;
+  --accent: #8fe3cf; /* mint */
+  --accent-foreground: #24163a;
+  --pink: #ffc2d4; /* bubblegum */
+  --pink-foreground: #24163a;
+  --coral: #ff7f5c;
+  --muted: #f4ecff; /* lavender mist */
+  --muted-foreground: #574a6c;
+  --border: #24163a;
+  --input: #74648a;
+  --ring: #5a2dc2;
+  --destructive: #b3261e;
+  --success: #1d6b45;
+  --shadow-pop: #24163a;
+  --highlight: #ffd447;
+}
+
+.dark {
+  --background: #1b1130;
+  --foreground: #fbf4ff;
+  --card: #261a40;
+  --card-foreground: #fbf4ff;
+  --primary: #c9b5ff;
+  --primary-foreground: #1b1130;
+  --secondary: #ffd447;
+  --secondary-foreground: #1b1130;
+  --accent: #8fe3cf;
+  --accent-foreground: #1b1130;
+  --pink: #ffc2d4;
+  --pink-foreground: #1b1130;
+  --coral: #ff8f70;
+  --muted: #33255a;
+  --muted-foreground: #d3c7ea;
+  --border: #8f7fb0;
+  --input: #a596c4;
+  --ring: #ffd447;
+  --destructive: #ffa59e;
+  --success: #7fe0b0;
+  --shadow-pop: #000000;
+  --highlight: #5a2dc2;
+}
+
+@theme inline {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: ui-rounded, 'SF Pro Rounded', 'Nunito', 'Varela Round', ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-pink: var(--pink);
+  --color-pink-foreground: var(--pink-foreground);
+  --color-coral: var(--coral);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    background-image: radial-gradient(color-mix(in oklab, var(--primary) 14%, transparent) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+  a {
+    text-underline-offset: 0.2em;
+  }
+  ::selection {
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-wiggle {
+  animation: wiggle 0.6s ease-in-out 2;
+}
+
+@utility animate-pop-in {
+  animation: pop-in 0.35s ease-out both;
+}
