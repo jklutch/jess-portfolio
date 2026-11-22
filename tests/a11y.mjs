@@ -80,8 +80,11 @@ try {
   {
     const ctx = await browser.newContext({ viewport: { width: 320, height: 640 } })
     const page = await ctx.newPage()
+    // Run twice: as-is, and with text ~5% wider to stand in for wider fallback fonts on other machines.
+    for (const wide of [false, true]) {
     for (const tab of ['work', 'art', 'contact', ...SLUGS.map((s) => `work/${s}`)]) {
       await page.goto(`${BASE}#${tab}`)
+      if (wide) await page.addStyleTag({ content: '*{letter-spacing:0.03em !important}' })
       await page.waitForTimeout(50)
       const overflow = await page.evaluate(() =>
         Math.max(
@@ -91,7 +94,8 @@ try {
             .map((el) => Math.ceil(el.getBoundingClientRect().right - (window.innerWidth - 16))),
         ),
       )
-      overflow > 0 ? fail(`#${tab} scrolls horizontally by ${overflow}px`) : console.log(`  ✓ #${tab} no horizontal scroll`)
+      overflow > 0 ? fail(`#${tab}${wide ? ' (wide text)' : ''} scrolls horizontally by ${overflow}px`) : console.log(`  ✓ #${tab}${wide ? ' (wide text)' : ''} no horizontal scroll`)
+    }
     }
     await ctx.close()
   }

@@ -96,19 +96,10 @@ export default function App() {
           </main>
         ) : (
           <>
-        <section aria-labelledby="intro-heading" className="relative py-8 sm:py-14">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-4 right-0 hidden size-40 rounded-full bg-secondary opacity-80 blur-0 md:block"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-28 right-28 hidden size-20 rotate-12 rounded-3xl bg-accent md:block"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-10 right-44 hidden size-10 rounded-full bg-pink md:block"
-          />
+        <section
+          aria-labelledby="intro-heading"
+          className="grid items-center gap-10 py-8 sm:py-14 md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]"
+        >
           <div className="relative max-w-3xl space-y-5">
             <p className="inline-flex items-center gap-2 rounded-full border-2 bg-card px-4 py-1 text-sm font-semibold">
               <Sparkles aria-hidden="true" className="size-4 text-primary hover:animate-wiggle" />
@@ -136,6 +127,20 @@ export default function App() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="relative mx-auto w-full max-w-64 md:max-w-none">
+            {/* Decorative confetti behind the photo */}
+            <div aria-hidden="true" className="absolute -top-5 -right-4 size-24 rounded-full bg-secondary" />
+            <div aria-hidden="true" className="absolute -bottom-4 -left-5 size-16 rotate-12 rounded-2xl bg-accent" />
+            <div aria-hidden="true" className="absolute top-1/3 -left-7 size-8 rounded-full bg-pink" />
+            <img
+              src={profile.photo.src}
+              alt={profile.photo.alt}
+              width={profile.photo.width}
+              height={profile.photo.height}
+              fetchPriority="high"
+              className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[8px_8px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
+            />
           </div>
         </section>
 

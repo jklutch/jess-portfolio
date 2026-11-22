@@ -17,6 +17,12 @@ export const profile = {
   intro:
     'I’m a researcher, designer, and artist. My work explores how and why people use technology, and lately that means helping Minnesotans get to benefits and services with less waiting and less guesswork.',
   education: 'M.S. in Human-Computer Interaction, DePaul University',
+  photo: {
+    src: `${import.meta.env.BASE_URL}img/jess.webp`,
+    alt: 'Jess smiling and holding a waffle cone of ice cream at a seaside railing, with the sun setting over the ocean behind.',
+    width: 720,
+    height: 960,
+  },
   skills: ['User research', 'Usability testing', 'Accessibility', 'Prototyping', 'Information architecture'],
   email: 'jklutch@gmail.com',
   links: [
@@ -32,6 +38,7 @@ export type Section = {
   body?: string[]
   list?: string[]
   quote?: { text: string; cite: string }
+  quotes?: { text: string; cite: string }[]
   images?: Image[]
 }
 
@@ -49,7 +56,7 @@ export type Project = {
   status?: string
   tags: string[]
   color: 'sunny' | 'mint' | 'bubblegum' | 'grape'
-  icon: 'tracker' | 'clock' | 'link' | 'mind' | 'ear' | 'bus' | 'film' | 'leaf' | 'mountain' | 'palette'
+  icon: 'tracker' | 'clock' | 'link' | 'mind' | 'ear' | 'bus' | 'film' | 'leaf' | 'mountain'
   thumb?: Image
   hero?: Image
   stats?: { value: string; label: string }[]
@@ -85,6 +92,13 @@ export const projects: Project[] = [
     tags: ['Service design', 'User research', 'Accessibility', 'Bilingual'],
     color: 'sunny',
     icon: 'tracker',
+    thumb: { src: img('case-status-thumb.webp'), alt: '', width: 640, height: 379 },
+    hero: {
+      src: img('case-status-hero.webp'),
+      alt: 'The Case Status Tracker on MNbenefits.mn.gov, shown on a laptop. A card reads “Log in to see your status. You can see more when you continue with LoginMN,” with a “Continue with LoginMN” button, an “Or” divider, a “Continue as guest” button, and a note that guest access shows limited info.',
+      width: 1400,
+      height: 828,
+    },
     stats: [
       { value: '9,662', label: 'successful logins in the first year' },
       { value: '58,854', label: 'verification request forms made available' },
@@ -109,6 +123,16 @@ export const projects: Project[] = [
         heading: 'What launched',
         body: [
           'The tracker began as a pilot in July 2025. People can access it “as guest” using three case identifiers, or with their statewide LoginMN account. Both options are available in English and Spanish and meet web accessibility standards.',
+          'Promotional materials told residents where to go and what each option gives them, in plain language.',
+        ],
+        images: [
+          {
+            src: img('case-status-promo.webp'),
+            alt: 'Minnesota promotional graphic titled “Case Status Tracker & LoginMN: Log In to See Your Status. SNAP, Cash, Child Care Assistance, Emergency Assistance, and Housing Support.” It says: Visit mnbenefits.mn.gov/status/pages/trackerLogin. Sign in through LoginMN to see more information. Can’t create an account? Continue as guest to view a basic status for everyone on your application. A phone shows the tracker’s login screen.',
+            width: 554,
+            height: 554,
+            caption: 'Promotional graphic for the LoginMN launch',
+          },
         ],
       },
       {
@@ -147,45 +171,102 @@ export const projects: Project[] = [
     kicker: 'Workforce tools',
     org: 'Minnesota DCYF, DHS & MNIT',
     timeframe: 'Completed 2026',
-    status: 'Complete. The final enhancement, the Case Load button, was released Aug. 18, 2026.',
+    status: 'Available statewide. The project wrapped up in 2026 after 25 sprints.',
     summary:
-      'Modernizing how county social workers, case aides, and clerical, fiscal, and licensing staff enter their time in SSIS, Minnesota’s statewide social services system, including a mobile version for use in the field.',
-    tags: ['Enterprise UX', 'Mobile', 'Workforce'],
+      'A new web app that replaced one of the most time-consuming tasks in SSIS, Minnesota’s 25-year-old child welfare system: entering time. Social workers now report saving two to five hours a week.',
+    tags: ['Enterprise UX', 'Agile', 'Co-design', 'Mobile'],
     color: 'mint',
     icon: 'clock',
+    thumb: { src: img('time-entry-thumb.webp'), alt: '', width: 640, height: 439 },
+    hero: {
+      src: img('time-entry-hero.webp'),
+      alt: 'The Time Entry web app’s Activity Log on a laptop. Totals at the top read 176 hours overall and 3 hours 15 minutes in the current view, above a searchable, filterable grid of time records with columns for service, hours, activity, regarding, and purpose.',
+      width: 860,
+      height: 590,
+    },
+    stats: [
+      { value: '2–5 hrs', label: 'saved each week by social workers using the new tool' },
+      { value: '25', label: 'sprints, each shared in a public sprint review' },
+      { value: '17', label: 'county workers at 13 agencies in one round of user acceptance testing' },
+    ],
     sections: [
       {
-        heading: 'About SSIS',
+        heading: 'The problem',
         body: [
-          'The Social Service Information System (SSIS) is Minnesota’s statewide system for managing child welfare and protection cases and other social services, including adult protective services. County social workers use it in every part of their work, from intake and screening to time reporting, maltreatment investigation, out-of-home placement, and foster care licensing.',
-          'Agency professionals, from social workers and case aides to clerical, fiscal, and licensing staff, use SSIS to enter or update time information, case notes, and agency time sheets.',
+          'County social workers, case aides, and clerical, fiscal, and licensing staff use the Social Service Information System (SSIS) for everything from intake and screening to maltreatment investigations, out-of-home placement, and foster care licensing. They also use it to record their time, every day.',
+          'The child welfare part of SSIS has been in place for more than 25 years, and time entry was one of its most time-consuming functions. Child welfare work rarely happens in neat blocks of time. Days are full of short tasks, interruptions, and urgent needs, but tracking time relied on manual calculations, and workers had no clear view of where their time went. Every minute spent on paperwork was a minute not spent with children and families.',
         ],
       },
       {
-        heading: 'Goals',
-        body: ['By improving how caseworkers enter their time in SSIS, the project aimed to:'],
+        heading: 'Start where change is most urgent',
+        body: [
+          'Rather than redesigning everything at once, the state focused on one area where workers said change was urgently needed. The result is a modern web app that securely connects to SSIS and replaces its time entry function with a faster, more reliable experience, including a mobile version so workers can enter time in the field.',
+        ],
+      },
+      {
+        heading: 'Built with the people who use it',
+        body: [
+          'DCYF partnered closely with DHS, MNIT, counties, and frontline staff from the start. Workers tested early versions, shared feedback every two weeks, and saw that feedback shape each new iteration.',
+          'A public project site kept everyone in the loop. After every sprint, the product team posted a sprint review of what it set out to do and what actually happened. Workers could send ideas through a suggestion box, answer surveys, ask questions, and find training videos and job aids.',
+          'In one round of user acceptance testing, 17 county workers from 13 agencies tested the new Activity Log. Their feedback led to changes before the statewide release, including:',
+        ],
         list: [
-          'Save caseworkers’ time by making it easier to enter data',
-          'Reduce paperwork and extra tasks for caseworkers',
-          'Provide a mobile version so caseworkers can use it in the field',
-          'Ensure correct and complete records',
-          'Improve the ease and reliability of the system',
+          'Adding the Purpose field to Quick Entry for time that isn’t tied to a program',
+          'Adding date ranges to the Activity Log to match SSIS',
+          'Letting people go back to the Activity Log, not only start a new entry',
+          'Adding info icons to explain the Total and Current View calculations',
+          'A card view of the Activity Log for phones, alongside the desktop grid',
+        ],
+        quote: {
+          text: 'This work succeeded because we built it together—with counties, with partners, and with the people who use the system every day.',
+          cite: 'Minnesota county worker who took part in early testing',
+        },
+      },
+      {
+        heading: 'What shipped',
+        body: [
+          'Suggestion box feedback showed the need for a clearer way to track time without manual math. The web app lets workers see how their time is spent, so gaps are easy to find and fix. The time entry fields stayed familiar, while refinements to the form and the new Activity Log made entries easier to review and keep accurate.',
+        ],
+        list: [
+          'An Activity Log landing page to view, sort, and search time records from the web app or SSIS',
+          'Draft entries that can be created, saved, edited, or discarded before submitting',
+          'Editing of entries already submitted through the web app',
+          'A Case Load button to add time records to another worker’s caseload, the final enhancement',
         ],
       },
       {
-        heading: 'Partnership',
+        heading: 'Results',
         body: [
-          'The project was a partnership between DCYF, the Department of Human Services (DHS), MNIT, and the people who use the system every day. It reflects DCYF’s broader commitment to simplifying systems, supporting partners, and centering services around Minnesota’s children, youth, and families.',
+          'Social workers using the new system report saving two to five hours each week. That time helps reduce stress, supports a more sustainable workload, and gives people a better chance of working reasonable hours in a demanding field. The web app is now available statewide, with training materials and job aids for every worker.',
         ],
+        quote: {
+          text: 'I’ve loved having a web-based version, and it has already started to save time in my day.',
+          cite: 'County worker',
+        },
       },
       {
-        heading: 'Where it landed',
+        heading: 'A new way of working',
         body: [
-          'The Time Entry Transformation has officially wrapped up. The Case Load button was the last major enhancement, released on August 18, 2026. The web app is now in maintenance, with defects addressed as they come in through the SSIS Help Desk.',
+          'Time Entry Transformation was an early step in modernizing Minnesota’s child welfare technology, ahead of a new Comprehensive Child Welfare Information System that will replace the child welfare portion of SSIS. Just as importantly, it set a new way of working: listening, learning, and improving alongside users. It wasn’t always polished, but it delivered value faster and built trust along the way.',
+        ],
+        quotes: [
+          {
+            text: 'When technology improvements reduce administrative burden, we help create more space for meaningful, human-centered work with children and families.',
+            cite: 'Tikki Brown, Commissioner, Minnesota Department of Children, Youth, and Families',
+          },
+          {
+            text: 'Time Entry Transformation shows what’s possible when we’re aligned, focused on the right problem, and willing to work differently.',
+            cite: 'Tikki Brown, Commissioner, Minnesota Department of Children, Youth, and Families',
+          },
         ],
       },
     ],
-    links: [{ label: 'DCYF: Time Entry Transformation', href: 'https://dcyf.mn.gov/time-entry-transformation' }],
+    links: [
+      { label: 'Watch a training video: Using the Activity Log', href: 'https://minnesotadcyf.us.engagementhq.com/time-entry-transformation/widgets/106977/videos/7115' },
+      { label: 'Project site with sprint reviews and worker feedback', href: 'https://minnesotadcyf.us.engagementhq.com/time-entry-transformation' },
+      { label: 'DCYF news: How DCYF modernized a key tool to support child welfare workers', href: 'https://dcyf.mn.gov/news/how-dcyf-modernized-key-tool-support-child-welfare-workers' },
+      { label: 'DCYF: Time Entry Transformation', href: 'https://dcyf.mn.gov/time-entry-transformation' },
+    ],
   },
   {
     slug: 'mnbenefits-maxis-integration',
@@ -714,42 +795,6 @@ export const projects: Project[] = [
       },
     ],
     links: [{ label: 'Original case study on jessklutch.com', href: 'https://jessklutch.com/work/organza.html' }],
-  },
-  {
-    slug: 'portfolio-design-system',
-    group: 'school',
-    title: 'Portfolio design system',
-    kicker: 'Design system',
-    org: 'DePaul University',
-    timeframe: '2022',
-    tools: ['Bootstrap 5', 'HTML', 'CSS'],
-    summary:
-      'Design system guidelines for my earlier portfolio site, covering logo, type, color, grid, and components, with accessibility and usage notes for each.',
-    tags: ['Design systems', 'Accessibility', 'Front-end'],
-    color: 'grape',
-    icon: 'palette',
-    thumb: { src: img('design-system-thumb.webp'), alt: '', width: 640, height: 447 },
-    hero: {
-      src: img('design-system-hero.webp'),
-      alt: 'A web layout spec for the portfolio homepage, with spacing measurements in pixels, the JK logo, navigation, and an illustrated portrait of Jess, plus tabs for web, tablet, and phone layouts and grids.',
-      width: 1400,
-      height: 978,
-    },
-    sections: [
-      {
-        heading: 'Clean, legible, inquisitive',
-        body: [
-          'The system grew out of a mind map and three words: clean, legible, and inquisitive. It documents the foundations of the site, its typography hierarchy, color values and usage, and logo variations.',
-        ],
-      },
-      {
-        heading: 'Components and patterns',
-        body: [
-          'Guidelines cover three components (buttons, cards, and the navigation menu), each with intended use, accessibility notes, and HTML snippets for easy reuse. Page patterns for the Home and Work pages show layouts and Bootstrap 5 grids across device sizes.',
-        ],
-      },
-    ],
-    links: [{ label: 'View the design system', href: 'https://jessklutch.com/work/mini_design_system/index.html' }],
   },
 ]
 

@@ -6,7 +6,7 @@ import {
   Leaf,
   ListChecks,
   Mountain,
-  Palette,
+
   Brain,
   Unplug,
 } from 'lucide-react'
@@ -23,7 +23,6 @@ export const projectIcons = {
   film: Clapperboard,
   leaf: Leaf,
   mountain: Mountain,
-  palette: Palette,
 } satisfies Record<Project['icon'], unknown>
 
 export const bandClass: Record<Project['color'], string> = {

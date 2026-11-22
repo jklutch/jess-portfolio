@@ -134,16 +134,16 @@ export function ProjectPage({ project: p }: { project: Project }) {
               ))}
             </ul>
           )}
-          {s.quote && (
-            <figure className="rounded-3xl border-2 bg-secondary px-6 py-5 text-secondary-foreground">
-              <blockquote className="font-display text-xl font-bold">“{s.quote.text}”</blockquote>
-              <figcaption className="mt-2 text-sm font-semibold">— {s.quote.cite}</figcaption>
+          {[...(s.quote ? [s.quote] : []), ...(s.quotes ?? [])].map((q) => (
+            <figure key={q.text} className="rounded-3xl border-2 bg-secondary px-6 py-5 text-secondary-foreground">
+              <blockquote className="font-display text-xl font-bold">“{q.text}”</blockquote>
+              <figcaption className="mt-2 text-sm font-semibold">— {q.cite}</figcaption>
             </figure>
-          )}
+          ))}
           {s.images && (
             <div className={cn('grid gap-6', s.images.length > 1 && s.images.every((im) => im.height > im.width) && 'grid-cols-2')}>
               {s.images.map((im) => (
-                <Figure key={im.src} image={im} />
+                <Figure key={im.src} image={im} className={cn(s.images!.length === 1 && im.width <= 720 && 'mx-auto w-full max-w-md')} />
               ))}
             </div>
           )}
