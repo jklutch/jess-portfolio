@@ -14,8 +14,6 @@ export const profile = {
   shortName: 'Jess',
   role: 'Public Sector UX Designer',
   tagline: 'I design public services that are clear, accessible, and built with the people who use them.',
-  philosophy:
-    'The design process should be engaging and fun, and it should bring people together: teams across the organization, and the people who will use the final product or service.',
   skills: ['Design thinking', 'Iterative prototyping', 'Usability testing', 'Business & developer diplomat', 'HTML & CSS', 'Accessibility'],
   employment: {
     title: 'Digital Experience Product Designer',
