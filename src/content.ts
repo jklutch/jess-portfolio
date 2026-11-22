@@ -14,8 +14,6 @@ export const profile = {
   shortName: 'Jess',
   role: 'Public Sector UX Designer',
   tagline: 'I design public services that are clear, accessible, and built with the people who use them.',
-  intro:
-    'I’m a researcher, designer, and artist helping Minnesotans get to benefits and services with less waiting and less guesswork.',
   employment: {
     title: 'Digital Experience Product Designer',
     org: 'State of Minnesota',
@@ -35,7 +33,6 @@ export const profile = {
     width: 720,
     height: 960,
   },
-  skills: ['User research', 'Usability testing', 'Accessibility', 'Prototyping', 'Information architecture'],
   email: 'jklutch@gmail.com',
   links: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jklutch/' },
@@ -188,7 +185,7 @@ export const projects: Project[] = [
     summary:
       'A new web app that replaced one of the most time-consuming tasks in SSIS, Minnesota’s 25-year-old child welfare system: entering time. Social workers now report saving two to five hours a week.',
     role: 'Solo UX designer',
-    tags: ['Agile', 'Usability testing', 'Field work', 'Lo-fi prototypes', 'WCAG 2.1 AA', 'Co-design', 'Mobile'],
+    tags: ['Agile', 'Usability testing', 'WCAG 2.1 AA', 'Field work', 'Lo-fi prototypes', 'Co-design', 'Mobile'],
     color: 'mint',
     icon: 'clock',
     thumb: { src: img('time-entry-thumb.webp'), alt: '', width: 640, height: 439 },

@@ -5,7 +5,6 @@ import { ArtTab } from '@/components/art-tab'
 import { ContactTab } from '@/components/contact-tab'
 import { ProjectPage } from '@/components/project-page'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { WorkTab } from '@/components/work-tab'
 import { profile, projects } from '@/content'
@@ -23,8 +22,6 @@ function routeFromHash(): Route {
   const project = tab === 'work' && slug ? projects.find((p) => p.slug === slug) : undefined
   return { tab, project }
 }
-
-const badgeCycle = ['sunny', 'mint', 'bubblegum'] as const
 
 export default function App() {
   const [route, setRoute] = useState<Route>(routeFromHash)
@@ -113,7 +110,6 @@ export default function App() {
                 {profile.tagline}
               </span>
             </p>
-            <p className="leading-relaxed text-muted-foreground sm:text-lg">{profile.intro}</p>
 
             <ul className="space-y-2.5 pt-1 text-sm" role="list" aria-label="Experience and credentials">
               <li className="flex items-start gap-2">
@@ -143,14 +139,6 @@ export default function App() {
                     </a>
                     <span className="text-muted-foreground"> · {c.name}</span>
                   </span>
-                </li>
-              ))}
-            </ul>
-
-            <ul className="flex flex-wrap gap-2" role="list" aria-label="Areas of focus">
-              {profile.skills.map((s, i) => (
-                <li key={s}>
-                  <Badge variant={badgeCycle[i % badgeCycle.length]}>{s}</Badge>
                 </li>
               ))}
             </ul>

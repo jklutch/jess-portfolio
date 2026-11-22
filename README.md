@@ -8,7 +8,7 @@ A small, playful, accessible portfolio site with **Work**, **Art**, and **Contac
 
 ## Edit your content
 
-Everything you'll want to change lives in **`src/content.ts`**: your intro, skills, projects (each gets its own page at `#work/<slug>`), knitting gallery, and contact links. Project images live in `public/img/projects/`.
+Everything you'll want to change lives in **`src/content.ts`**: your tagline, current role, credentials, projects (each gets its own page at `#work/<slug>`), knitting gallery, and contact links. Project images live in `public/img/projects/`.
 
 
 To add knitting projects, drop photos in `public/img/knitting/` and add entries to `artworks` with descriptive alt text.
