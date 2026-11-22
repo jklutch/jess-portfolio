@@ -28,8 +28,8 @@ function KnitSwatch() {
 
 export function ArtTab() {
   return (
-    <section aria-labelledby="art-heading" className="space-y-6">
-      <div className="max-w-2xl space-y-2">
+    <section aria-labelledby="art-heading" className="space-y-10">
+      <div className="max-w-2xl space-y-3">
         <h2 id="art-heading" className="text-3xl font-bold sm:text-4xl">
           Knitting & making
         </h2>
@@ -40,7 +40,7 @@ export function ArtTab() {
       </div>
 
       {artworks.length > 0 ? (
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" role="list">
           {artworks.map((art, i) => (
             <li key={art.title} className="motion-safe:animate-pop-in" style={{ animationDelay: `${i * 60}ms` }}>
               <figure

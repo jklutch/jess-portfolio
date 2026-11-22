@@ -49,7 +49,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           <CardDescription>{p.org}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>{p.summary}</p>
+          <p className="leading-relaxed">{p.summary}</p>
         </CardContent>
         <CardFooter className="justify-between gap-4">
           <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills used">
@@ -73,14 +73,14 @@ function ProjectGroup({ group }: { group: Project['group'] }) {
   const list = projects.filter((p) => p.group === group)
   const id = `${group}-heading`
   return (
-    <section aria-labelledby={id} className="space-y-6">
-      <div className="max-w-2xl space-y-2">
+    <section aria-labelledby={id} className="space-y-10">
+      <div className="max-w-2xl space-y-3">
         <h2 id={id} className="text-3xl font-bold sm:text-4xl">
           {heading}
         </h2>
-        <p className="text-lg text-muted-foreground">{description}</p>
+        <p className="text-lg leading-relaxed text-muted-foreground">{description}</p>
       </div>
-      <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list">
+      <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10" role="list">
         {list.map((p, i) => (
           <ProjectCard key={p.slug} p={p} index={i} />
         ))}
@@ -91,7 +91,7 @@ function ProjectGroup({ group }: { group: Project['group'] }) {
 
 export function WorkTab() {
   return (
-    <div className="space-y-16">
+    <div className="space-y-24 sm:space-y-28">
       <ProjectGroup group="public" />
       <ProjectGroup group="school" />
     </div>

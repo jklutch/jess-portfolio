@@ -57,7 +57,7 @@ export function ProjectPage({ project: p }: { project: Project }) {
   }, [p.slug])
 
   return (
-    <article aria-labelledby="project-title" className="mx-auto max-w-3xl space-y-10 pb-8">
+    <article aria-labelledby="project-title" className="mx-auto max-w-3xl space-y-14 pb-8 sm:space-y-16">
       <a
         href="#work"
         className="inline-flex min-h-11 items-center gap-2 rounded-full font-semibold text-primary underline-offset-4 outline-none hover:underline focus-visible:ring-[3px] focus-visible:ring-ring"
@@ -66,7 +66,7 @@ export function ProjectPage({ project: p }: { project: Project }) {
         Back to all work
       </a>
 
-      <header className="space-y-5">
+      <header className="space-y-6">
         <p className="flex flex-wrap items-center gap-2 text-sm font-semibold">
           <span className={cn('inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1', bandClass[p.color])}>
             <Icon aria-hidden="true" className="size-4" />
@@ -82,7 +82,7 @@ export function ProjectPage({ project: p }: { project: Project }) {
         >
           {p.title}
         </h1>
-        <p className="text-xl text-muted-foreground">{p.summary}</p>
+        <p className="text-xl leading-relaxed text-muted-foreground">{p.summary}</p>
         <ul className="flex flex-wrap gap-2" role="list" aria-label="Skills used">
           {p.tags.map((t) => (
             <li key={t}>
@@ -94,7 +94,7 @@ export function ProjectPage({ project: p }: { project: Project }) {
 
       {p.hero && <Figure image={p.hero} />}
 
-      <dl className="grid gap-4 rounded-3xl border-2 bg-card p-6 shadow-[6px_6px_0_0_var(--shadow-pop)] sm:grid-cols-2">
+      <dl className="grid gap-5 rounded-3xl border-2 bg-card p-7 shadow-[6px_6px_0_0_var(--shadow-pop)] sm:grid-cols-2">
         <Meta label="Organization">{p.org}</Meta>
         <Meta label="Timeline">{p.timeframe}</Meta>
         {p.role && <Meta label="My role">{p.role}</Meta>}
@@ -108,9 +108,9 @@ export function ProjectPage({ project: p }: { project: Project }) {
           <h2 id="stats-heading" className="sr-only">
             By the numbers
           </h2>
-          <ul className="grid gap-4 sm:grid-cols-3" role="list">
+          <ul className="grid gap-5 sm:grid-cols-3" role="list">
             {p.stats.map((s) => (
-              <li key={s.label} className="rounded-2xl bg-muted px-5 py-4">
+              <li key={s.label} className="rounded-2xl bg-muted px-5 py-5">
                 <p className="font-display text-3xl font-extrabold text-primary">{s.value}</p>
                 <p className="text-sm font-medium">{s.label}</p>
               </li>
@@ -120,15 +120,15 @@ export function ProjectPage({ project: p }: { project: Project }) {
       )}
 
       {p.sections.map((s) => (
-        <section key={s.heading} className="space-y-4">
+        <section key={s.heading} className="space-y-5">
           <h2 className="text-2xl font-bold sm:text-3xl">{s.heading}</h2>
           {s.body?.map((para) => (
-            <p key={para.slice(0, 40)} className="text-lg">
+            <p key={para.slice(0, 40)} className="text-lg leading-relaxed">
               {para}
             </p>
           ))}
           {s.list && (
-            <ul className="list-disc space-y-2 pl-6 text-lg marker:text-primary">
+            <ul className="list-disc space-y-3 pl-6 text-lg leading-relaxed marker:text-primary">
               {s.list.map((li) => (
                 <li key={li}>{li}</li>
               ))}

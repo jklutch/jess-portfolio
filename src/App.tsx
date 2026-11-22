@@ -91,16 +91,16 @@ export default function App() {
         </header>
 
         {project ? (
-          <main id="main" tabIndex={-1} className="flex-1 py-6 outline-none">
+          <main id="main" tabIndex={-1} className="flex-1 pt-6 pb-24 outline-none">
             <ProjectPage project={project} />
           </main>
         ) : (
           <>
         <section
           aria-labelledby="intro-heading"
-          className="grid items-center gap-8 py-6 sm:py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]"
+          className="grid items-center gap-10 py-10 sm:py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]"
         >
-          <div className="max-w-2xl space-y-4">
+          <div className="max-w-2xl space-y-6">
             <p className="inline-flex items-center gap-2 rounded-full border-2 bg-card px-3 py-0.5 text-sm font-semibold">
               <Sparkles aria-hidden="true" className="size-4 text-primary hover:animate-wiggle" />
               {profile.role}
@@ -113,9 +113,9 @@ export default function App() {
                 {profile.tagline}
               </span>
             </p>
-            <p className="text-muted-foreground sm:text-lg">{profile.intro}</p>
+            <p className="leading-relaxed text-muted-foreground sm:text-lg">{profile.intro}</p>
 
-            <ul className="space-y-1.5 text-sm" role="list" aria-label="Experience and credentials">
+            <ul className="space-y-2.5 pt-1 text-sm" role="list" aria-label="Experience and credentials">
               <li className="flex items-start gap-2">
                 <BriefcaseBusiness aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
                 <span>
@@ -147,7 +147,7 @@ export default function App() {
               ))}
             </ul>
 
-            <ul className="flex flex-wrap gap-1.5" role="list" aria-label="Areas of focus">
+            <ul className="flex flex-wrap gap-2" role="list" aria-label="Areas of focus">
               {profile.skills.map((s, i) => (
                 <li key={s}>
                   <Badge variant={badgeCycle[i % badgeCycle.length]}>{s}</Badge>
@@ -171,7 +171,7 @@ export default function App() {
           </div>
         </section>
 
-        <main id="main" tabIndex={-1} className="flex-1 pb-16 outline-none">
+        <main id="main" tabIndex={-1} className="flex-1 pt-4 pb-24 outline-none">
           <Tabs value={tab} onValueChange={changeTab}>
             <TabsList aria-label="Portfolio sections">
               <TabsTrigger value="work">
@@ -201,7 +201,7 @@ export default function App() {
           </>
         )}
 
-        <footer className="border-t-2 border-dashed py-8 text-sm text-muted-foreground">
+        <footer className="border-t-2 border-dashed py-10 text-sm text-muted-foreground">
           <p>
             © {new Date().getFullYear()} {profile.name}. Designed with care, built with{' '}
             <a className="font-semibold text-foreground underline hover:decoration-2" href="https://ui.shadcn.com/">

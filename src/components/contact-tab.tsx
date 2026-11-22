@@ -76,8 +76,8 @@ export function ContactTab() {
     [hint, errors[f] ? `${ids[f]}-error` : undefined].filter(Boolean).join(' ') || undefined
 
   return (
-    <section aria-labelledby="contact-heading" className="space-y-6">
-      <div className="max-w-2xl space-y-2">
+    <section aria-labelledby="contact-heading" className="space-y-10">
+      <div className="max-w-2xl space-y-3">
         <h2 id="contact-heading" className="text-3xl font-bold sm:text-4xl">
           Let’s make something good together
         </h2>
@@ -87,14 +87,14 @@ export function ContactTab() {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+      <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <Card>
           <CardHeader>
             <CardTitle>Send a message</CardTitle>
             <CardDescription>All fields are required. Sending opens your email app.</CardDescription>
           </CardHeader>
           <CardContent>
-            <form ref={formRef} noValidate onSubmit={onSubmit} className="space-y-5" aria-label="Contact form">
+            <form ref={formRef} noValidate onSubmit={onSubmit} className="space-y-6" aria-label="Contact form">
               <div className="space-y-2">
                 <Label htmlFor={ids.name}>Your name</Label>
                 <FieldError id={`${ids.name}-error`} message={errors.name} />
