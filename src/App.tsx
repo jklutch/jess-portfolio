@@ -1,4 +1,4 @@
-import { Brush, BriefcaseBusiness, GraduationCap, Mail, Sparkles } from 'lucide-react'
+import { BadgeCheck, Brush, BriefcaseBusiness, GraduationCap, Mail, Sparkles } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ArtTab } from '@/components/art-tab'
@@ -114,10 +114,45 @@ export default function App() {
               </span>
             </p>
             <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">{profile.intro}</p>
-            <p className="inline-flex items-center gap-2 font-semibold">
-              <GraduationCap aria-hidden="true" className="size-5 text-primary" />
-              {profile.education}
-            </p>
+            <ul className="grid gap-3 sm:grid-cols-2" role="list" aria-label="Experience and credentials">
+              <li className="flex gap-3 rounded-2xl border-2 bg-card p-3 sm:col-span-2">
+                <span className="shrink-0 self-start rounded-full bg-secondary p-2 text-secondary-foreground">
+                  <BriefcaseBusiness aria-hidden="true" className="size-5" />
+                </span>
+                <span>
+                  <span className="sr-only">Currently: </span>
+                  <span className="block font-bold">
+                    {profile.employment.title}, {profile.employment.org}
+                  </span>
+                  <span className="block text-sm text-muted-foreground">{profile.employment.detail}</span>
+                </span>
+              </li>
+              <li className="flex gap-3 rounded-2xl border-2 bg-card p-3">
+                <span className="shrink-0 self-start rounded-full bg-accent p-2 text-accent-foreground">
+                  <GraduationCap aria-hidden="true" className="size-5" />
+                </span>
+                <span className="self-center text-sm font-semibold">{profile.education}</span>
+              </li>
+              {profile.certifications.map((c) => (
+                <li key={c.short} className="flex gap-3 rounded-2xl border-2 bg-card p-3">
+                  <span className="shrink-0 self-start rounded-full bg-pink p-2 text-pink-foreground">
+                    <BadgeCheck aria-hidden="true" className="size-5" />
+                  </span>
+                  <span className="self-center text-sm">
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-bold underline decoration-2 underline-offset-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-ring"
+                    >
+                      {c.short}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                    <span className="block text-muted-foreground">{c.name}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
             <ul className="flex flex-wrap gap-2" role="list" aria-label="Areas of focus">
               {profile.skills.map((s, i) => (
                 <li key={s}>

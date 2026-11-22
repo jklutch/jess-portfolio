@@ -16,7 +16,19 @@ export const profile = {
   tagline: 'I design public services that are clear, accessible, and built with the people who use them.',
   intro:
     'I’m a researcher, designer, and artist. My work explores how and why people use technology, and lately that means helping Minnesotans get to benefits and services with less waiting and less guesswork.',
+  employment: {
+    title: 'Digital Experience Product Designer',
+    org: 'State of Minnesota',
+    detail: 'MNIT, partnering with DHS and DCYF',
+  },
   education: 'M.S. in Human-Computer Interaction, DePaul University',
+  certifications: [
+    {
+      short: 'IAAP CPACC',
+      name: 'Certified Professional in Accessibility Core Competencies',
+      href: 'https://www.accessibilityassociation.org/cpacc',
+    },
+  ],
   photo: {
     src: `${import.meta.env.BASE_URL}img/jess.webp`,
     alt: 'Jess smiling and holding a waffle cone of ice cream at a seaside railing, with the sun setting over the ocean behind.',
@@ -89,7 +101,8 @@ export const projects: Project[] = [
     status: 'Live in 24 counties, with five more joining',
     summary:
       'An online tool that lets people check the status of their food, housing, cash, or childcare assistance application from a phone, tablet, or computer, instead of waiting on hold.',
-    tags: ['Service design', 'User research', 'Accessibility', 'Bilingual'],
+    role: 'Solo UX designer',
+    tags: ['Agile', 'Usability testing', 'Lo-fi prototypes', 'WCAG 2.1 AA', 'User research', 'Service design', 'Bilingual'],
     color: 'sunny',
     icon: 'tracker',
     thumb: { src: img('case-status-thumb.webp'), alt: '', width: 640, height: 379 },
@@ -174,7 +187,8 @@ export const projects: Project[] = [
     status: 'Available statewide. The project wrapped up in 2026 after 25 sprints.',
     summary:
       'A new web app that replaced one of the most time-consuming tasks in SSIS, Minnesota’s 25-year-old child welfare system: entering time. Social workers now report saving two to five hours a week.',
-    tags: ['Enterprise UX', 'Agile', 'Co-design', 'Mobile'],
+    role: 'Solo UX designer',
+    tags: ['Agile', 'Usability testing', 'Field work', 'Lo-fi prototypes', 'WCAG 2.1 AA', 'Co-design', 'Mobile'],
     color: 'mint',
     icon: 'clock',
     thumb: { src: img('time-entry-thumb.webp'), alt: '', width: 640, height: 439 },
@@ -278,7 +292,8 @@ export const projects: Project[] = [
     status: 'Testing complete. Pilot implementation planned for 2027.',
     summary:
       'Connecting MNbenefits, the online application Minnesotans use, to MAXIS, the system workers use to determine eligibility and issue benefits, so there’s less re-keying of data and people get benefits faster.',
-    tags: ['Service design', 'Systems thinking', 'County partnership'],
+    role: 'Solo UX designer',
+    tags: ['Agile', 'Lo-fi prototypes', 'WCAG 2.1 AA', 'Service design', 'Systems thinking', 'County partnership'],
     color: 'bubblegum',
     icon: 'link',
     stats: [
