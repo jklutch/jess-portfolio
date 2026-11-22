@@ -40,6 +40,7 @@ export function ArtTab() {
       </div>
 
       {artworks.length > 0 ? (
+        <>
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" role="list">
           {artworks.map((art, i) => (
             <li key={art.title} className="motion-safe:animate-pop-in" style={{ animationDelay: `${i * 60}ms` }}>
@@ -53,7 +54,7 @@ export function ArtTab() {
                   height={art.image.height}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-square w-full object-cover"
+                  className="aspect-[4/5] w-full object-cover"
                 />
                 <figcaption className="border-t-2 px-5 py-4">
                   <p className="font-display text-lg font-bold">
@@ -65,14 +66,27 @@ export function ArtTab() {
                       art.title
                     )}
                   </p>
-                  {(art.pattern || art.year) && (
-                    <p className="text-sm text-muted-foreground">{[art.pattern, art.year].filter(Boolean).join(', ')}</p>
-                  )}
+                  {art.note && <p className="text-sm text-muted-foreground">{art.note}</p>}
                 </figcaption>
               </figure>
             </li>
           ))}
         </ul>
+        {ravelry && (
+          <p>
+            <a
+              href={ravelry.href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 rounded-lg font-semibold text-primary underline decoration-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-ring"
+            >
+              <ExternalLink aria-hidden="true" className="size-5" />
+              See more of my projects on Ravelry
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+          </p>
+        )}
+        </>
       ) : (
         <div className="flex flex-col items-start gap-6 rounded-3xl border-2 bg-card p-6 shadow-[6px_6px_0_0_var(--shadow-pop)] sm:flex-row sm:items-center">
           <KnitSwatch />

@@ -907,14 +907,67 @@ export const projects: Project[] = [
 
 export type Artwork = {
   title: string
-  pattern?: string
-  year?: string
+  /** A short line under the title, e.g. technique or pattern name */
+  note?: string
   href?: string
   image: Image
 }
+
+const knit = (file: string) => `${import.meta.env.BASE_URL}img/knitting/${file}`
 
 /**
  * Knitting projects. Add an entry per finished object with a photo
  * (put the image in public/img/knitting/ and write alt text that describes it).
  */
-export const artworks: Artwork[] = []
+export const artworks: Artwork[] = [
+  {
+    title: 'Orange colorwork socks',
+    note: 'Stranded colorwork',
+    image: {
+      src: knit('orange-socks.webp'),
+      alt: 'A pair of hand-knit socks in cream with a coral orange pattern: whole and sliced oranges at the cuff, rows of tiny oranges with green leaves down the leg and foot, and solid coral ribbing, heels, and toes. They lie on a woven wicker seat.',
+      width: 760,
+      height: 1013,
+    },
+  },
+  {
+    title: 'Collared cardigan',
+    note: 'Textured stripes and lace panels',
+    image: {
+      src: knit('cardigan.webp'),
+      alt: 'A rust-brown hand-knit cardigan laid flat on weathered gray deck boards. It has a pointed collar, five white buttons, horizontal ridged stripes, and triangular open lace panels at each side.',
+      width: 760,
+      height: 538,
+    },
+  },
+  {
+    title: 'Leaf colorwork socks',
+    note: 'Stranded colorwork',
+    image: {
+      src: knit('leaf-socks.webp'),
+      alt: 'A pair of hand-knit lavender-gray socks with a teal pattern of large leaves climbing up a center vine and small teal dots, on a dark green floral print fabric.',
+      width: 760,
+      height: 1013,
+    },
+  },
+  {
+    title: 'Knit camisole',
+    note: 'Summer top',
+    image: {
+      src: knit('camisole.webp'),
+      alt: 'A hand-knit olive-brown camisole with a V neckline and thin straps, hanging on a wooden hanger in a sunny window with a snowy yard outside.',
+      width: 760,
+      height: 954,
+    },
+  },
+  {
+    title: 'Sweater for my pup',
+    note: 'Dog sweater',
+    image: {
+      src: knit('dog-sweater.webp'),
+      alt: 'A black and tan cocker spaniel sitting on an ottoman by a window, wearing a hand-knit sweater in gradient stripes of blue, purple, gray, and green, next to a small pumpkin.',
+      width: 760,
+      height: 1013,
+    },
+  },
+]
