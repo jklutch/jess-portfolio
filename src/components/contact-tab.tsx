@@ -153,7 +153,7 @@ export function ContactTab() {
           </CardContent>
         </Card>
 
-        <Card className="bg-secondary text-secondary-foreground lg:self-start">
+        <Card className="bg-accent text-accent-foreground lg:self-start">
           <CardHeader>
             <CardTitle>Other ways to say hi</CardTitle>
           </CardHeader>
@@ -162,7 +162,7 @@ export function ContactTab() {
               <li>
                 <a
                   href={`mailto:${profile.email}`}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-lg font-semibold underline decoration-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-secondary-foreground"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-lg font-semibold underline decoration-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-accent-foreground"
                 >
                   <Mail aria-hidden="true" className="size-5" />
                   {profile.email}
@@ -174,7 +174,7 @@ export function ContactTab() {
                     href={l.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex min-h-11 items-center gap-2 rounded-lg font-semibold underline decoration-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-secondary-foreground"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg font-semibold underline decoration-2 outline-none hover:decoration-4 focus-visible:ring-[3px] focus-visible:ring-accent-foreground"
                   >
                     <ExternalLink aria-hidden="true" className="size-5" />
                     {l.label}

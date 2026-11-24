@@ -285,26 +285,26 @@ export default function App() {
         <main id="main" tabIndex={-1} className="flex-1 pt-4 pb-24 outline-none">
           <Tabs value={tab} onValueChange={changeTab}>
             <TabsList aria-label="Portfolio sections">
-              <TabsTrigger value="work">
+              <TabsTrigger value="work" className="data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground">
                 <BriefcaseBusiness aria-hidden="true" />
                 Work
               </TabsTrigger>
-              <TabsTrigger value="knits">
+              <TabsTrigger value="knits" className="data-[state=active]:bg-pink data-[state=active]:text-pink-foreground">
                 <Shirt aria-hidden="true" />
                 Knits
               </TabsTrigger>
-              <TabsTrigger value="contact">
+              <TabsTrigger value="contact" className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">
                 <Mail aria-hidden="true" />
                 Contact
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="work" data-tab="work">
+            <TabsContent value="work" data-tab="work" className="border-secondary bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--secondary)_16%,transparent),transparent_10rem)]">
               <WorkTab />
             </TabsContent>
-            <TabsContent value="knits" data-tab="knits">
+            <TabsContent value="knits" data-tab="knits" className="border-pink bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--pink)_16%,transparent),transparent_10rem)]">
               <KnitsTab />
             </TabsContent>
-            <TabsContent value="contact" data-tab="contact">
+            <TabsContent value="contact" data-tab="contact" className="border-accent bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--accent)_16%,transparent),transparent_10rem)]">
               <ContactTab />
             </TabsContent>
           </Tabs>
