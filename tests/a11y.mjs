@@ -119,6 +119,16 @@ try {
     sel?.trim() === 'Knits' ? console.log('  ✓ arrow keys move between tabs') : fail(`arrow key selected "${sel}"`)
     const hash = new URL(page.url()).hash
     hash === '#knits' ? console.log('  ✓ selected tab is reflected in the URL') : fail(`hash is ${hash}`)
+    // Calls to action in the intro open the right tab and move focus to the main content
+    await page.goto(`${BASE}#work`)
+    await page.getByRole('link', { name: 'Let’s talk' }).click()
+    await page.waitForTimeout(200)
+    const ctaTab = (await page.getByRole('tab', { selected: true }).textContent())?.trim()
+    const ctaFocus = await page.evaluate(() => document.activeElement?.id)
+    ctaTab === 'Contact' && ctaFocus === 'main'
+      ? console.log('  ✓ “Let’s talk” opens Contact and moves focus to the main content')
+      : fail(`CTA: tab=${ctaTab} focus=${ctaFocus}`)
+
     // Progressive disclosure in the intro
     await page.goto(`${BASE}#work`)
     const toggle = page.getByRole('button', { name: 'Education, certification & skills' })

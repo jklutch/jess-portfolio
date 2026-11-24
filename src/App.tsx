@@ -1,9 +1,10 @@
-import { BadgeCheck, BriefcaseBusiness, ChevronDown, GraduationCap, Mail, Shirt } from 'lucide-react'
+import { ArrowDown, BadgeCheck, BriefcaseBusiness, ChevronDown, GraduationCap, Mail, Shirt } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { KnitsTab } from '@/components/knits-tab'
 import { ContactTab } from '@/components/contact-tab'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { ProjectPage } from '@/components/project-page'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -80,6 +81,16 @@ export default function App() {
     if (window.location.hash.slice(1) !== next) history.pushState(null, '', `#${next}`)
   }
 
+  /** Used by the intro's calls to action: open a tab, scroll to it, and move focus there. */
+  function goTo(next: Tab) {
+    changeTab(next)
+    requestAnimationFrame(() => {
+      const main = document.getElementById('main')
+      main?.scrollIntoView({ block: 'start' })
+      main?.focus({ preventScroll: true })
+    })
+  }
+
   return (
     <>
       <a
@@ -112,10 +123,13 @@ export default function App() {
           <>
         <section
           aria-labelledby="intro-heading"
-          className="grid items-center gap-10 py-10 sm:py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]"
+          className="grid items-center gap-12 py-12 sm:py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] lg:min-h-[75vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-20"
         >
-          <div className="max-w-2xl space-y-6">
-            <h1 id="intro-heading" className="relative w-fit text-4xl leading-tight font-extrabold sm:text-6xl">
+          <div className="max-w-3xl space-y-8">
+            <h1
+              id="intro-heading"
+              className="relative w-fit text-5xl leading-[1.02] font-extrabold tracking-tight sm:text-7xl lg:text-8xl"
+            >
               Hi, I’m{' '}
               <span className="relative inline-block">
                 {profile.shortName}
@@ -124,7 +138,7 @@ export default function App() {
                   aria-hidden="true"
                   viewBox="0 0 200 20"
                   preserveAspectRatio="none"
-                  className="absolute -bottom-1 left-0 h-3 w-full text-coral sm:-bottom-2 sm:h-4"
+                  className="absolute -bottom-1 left-0 h-3 w-full text-coral sm:-bottom-2 sm:h-4 lg:-bottom-3 lg:h-5"
                 >
                   <path
                     d="M3 12 Q 20 3, 38 11 T 74 11 T 110 11 T 146 11 T 197 9"
@@ -139,10 +153,10 @@ export default function App() {
               <span aria-hidden="true" className="inline-block origin-[70%_80%] motion-safe:animate-wave">
                 👋
               </span>
-              <Sparkle className="absolute -top-3 -right-10 hidden size-8 text-secondary sm:block" />
-              <Sparkle className="absolute -right-4 bottom-1 hidden size-4 text-accent sm:block" />
+              <Sparkle className="absolute -top-4 -right-12 hidden size-9 text-secondary sm:block lg:size-11" />
+              <Sparkle className="absolute -right-5 bottom-2 hidden size-5 text-accent sm:block" />
             </h1>
-            <p className="font-display text-xl leading-snug font-bold sm:text-2xl">
+            <p className="max-w-2xl font-display text-2xl leading-snug font-bold sm:text-3xl lg:text-4xl lg:leading-tight">
               {profile.tagline.map((part, i) =>
                 'highlight' in part && part.highlight ? (
                   <span
@@ -157,7 +171,35 @@ export default function App() {
               )}
             </p>
 
-            <p className="flex items-start gap-2 pt-1 text-sm">
+            {/* Calls to action */}
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Button asChild size="lg" className="min-h-14 px-8 text-lg">
+                <a
+                  href="#work"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    goTo('work')
+                  }}
+                >
+                  See my work
+                  <ArrowDown aria-hidden="true" className="size-5" />
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="min-h-14 px-8 text-lg">
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    goTo('contact')
+                  }}
+                >
+                  <Mail aria-hidden="true" className="size-5" />
+                  Let’s talk
+                </a>
+              </Button>
+            </div>
+
+            <p className="flex items-start gap-2 pt-2 text-sm">
               <BriefcaseBusiness aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
               <span>
                 <span className="sr-only">Currently: </span>
@@ -217,7 +259,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-52 md:max-w-none">
+          <div className="relative mx-auto w-full max-w-60 md:max-w-none">
             {/* Decorative confetti behind the photo */}
             <div aria-hidden="true" className="absolute -top-4 -right-3 size-20 rounded-full bg-secondary" />
             <div aria-hidden="true" className="absolute -bottom-3 -left-4 size-12 rotate-12 rounded-2xl bg-accent" />
