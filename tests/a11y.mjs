@@ -84,11 +84,13 @@ try {
   {
     const ctx = await browser.newContext({ viewport: { width: 320, height: 640 } })
     const page = await ctx.newPage()
-    // Run twice: as-is, and with text ~5% wider to stand in for wider fallback fonts on other machines.
+    // Run twice: as-is, and with a wide fallback font.
     for (const wide of [false, true]) {
     for (const tab of ['work', 'knits', 'contact', ...SLUGS.map((s) => `work/${s}`)]) {
       await page.goto(`${BASE}#${tab}`)
-      if (wide) await page.addStyleTag({ content: '*{letter-spacing:0.03em !important}' })
+      // DejaVu Sans is a wide fallback font common on Linux; forcing it (plus a little extra
+      // letter-spacing) stands in for wider fonts on visitors' devices and CI machines.
+      if (wide) await page.addStyleTag({ content: '*{font-family:"DejaVu Sans",Verdana,sans-serif !important;letter-spacing:0.02em !important}' })
       await page.waitForTimeout(50)
       const overflow = await page.evaluate(() =>
         Math.max(

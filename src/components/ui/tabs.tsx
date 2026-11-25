@@ -28,12 +28,14 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        'inline-flex min-h-12 flex-1 items-center justify-center gap-1.5 rounded-t-2xl border-2 border-b-0 border-input bg-card px-2.5 py-2 text-sm font-semibold whitespace-nowrap text-foreground transition-[color,background-color,transform] sm:flex-none sm:gap-2 sm:px-7 sm:text-base',
+        'inline-flex min-h-12 flex-1 items-center justify-center gap-1.5 rounded-t-2xl border-2 border-b-0 border-input bg-card px-2 py-2 text-sm min-[380px]:px-2.5 font-semibold whitespace-nowrap text-foreground transition-[color,background-color,transform] sm:flex-none sm:gap-2 sm:px-7 sm:text-base',
         'hover:bg-muted',
         // Selected: thicker border, bold, and it drops 4px to cover the panel's top band so they read as one piece.
         'data-[state=active]:translate-y-1 data-[state=active]:border-border data-[state=active]:pb-3 data-[state=active]:font-bold',
         'outline-none focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        // On the narrowest phones, drop the decorative icons so the labels always fit.
+        'max-[379px]:[&_svg]:hidden',
         className,
       )}
       {...props}
