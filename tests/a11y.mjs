@@ -139,6 +139,17 @@ try {
       ? console.log('  ✓ “Let’s talk” opens Contact and moves focus to the main content')
       : fail(`CTA: tab=${ctaTab} focus=${ctaFocus}`)
 
+    // Rotating fun facts: pause control (WCAG 2.2.2) and full list for screen readers
+    await page.goto(`${BASE}#work`)
+    const pauseBtn = page.getByRole('button', { name: 'Pause rotating fun facts' })
+    await pauseBtn.focus()
+    await page.keyboard.press('Enter')
+    const playBtn = await page.getByRole('button', { name: 'Play rotating fun facts' }).count()
+    const factCount = await page.getByRole('list', { name: 'Fun facts about Jess' }).locator('li').count()
+    playBtn === 1 && factCount === 6
+      ? console.log('  ✓ fun facts can be paused by keyboard and are all listed for screen readers')
+      : fail(`fun facts: play button=${playBtn} facts=${factCount}`)
+
     // Progressive disclosure in the intro
     await page.goto(`${BASE}#work`)
     const toggle = page.getByRole('button', { name: 'Education, certification & skills' })

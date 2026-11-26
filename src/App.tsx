@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { KnitsTab } from '@/components/knits-tab'
 import { ContactTab } from '@/components/contact-tab'
 import { Sparkle } from '@/components/decor'
+import { FunFacts } from '@/components/fun-facts'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ProjectPage } from '@/components/project-page'
@@ -260,12 +261,7 @@ export default function App() {
               fetchPriority="high"
               className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[6px_6px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
             />
-            <a
-              href="#knits"
-              className="absolute -right-2 -bottom-4 inline-flex -rotate-6 items-center gap-1.5 rounded-full border-2 border-border bg-secondary px-3.5 py-1.5 text-sm font-bold text-secondary-foreground shadow-[3px_3px_0_0_var(--shadow-pop)] outline-none transition-transform hover:rotate-0 focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              Also knits! <span aria-hidden="true">🧶</span>
-            </a>
+            <FunFacts />
           </div>
         </section>
 

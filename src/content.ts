@@ -23,6 +23,15 @@ export const profile = {
     { text: 'built with the people who use them', highlight: true },
     { text: '.' },
   ],
+  /** Short phrases that rotate on the sticker on the intro photo. */
+  funFacts: [
+    'Really safe driver!',
+    'Pedestrian infrastructure enthusiast!',
+    'Zillennial energy!',
+    'Local library fan!',
+    'Loves animals!',
+    'Also knits! 🧶',
+  ],
   skills: ['Design thinking', 'Iterative prototyping', 'Usability testing', 'Business & developer diplomat', 'HTML & CSS', 'Accessibility'],
   employment: {
     title: 'Digital Experience Product Designer',
