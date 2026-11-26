@@ -139,16 +139,18 @@ try {
       ? console.log('  ✓ “Let’s talk” opens Contact and moves focus to the main content')
       : fail(`CTA: tab=${ctaTab} focus=${ctaFocus}`)
 
-    // Rotating fun facts: pause control (WCAG 2.2.2) and full list for screen readers
+    // Fun fact sticker: a button that shows the next phrase and announces it
     await page.goto(`${BASE}#work`)
-    const pauseBtn = page.getByRole('button', { name: 'Pause rotating fun facts' })
-    await pauseBtn.focus()
+    const factBtn = page.getByRole('button', { name: /show another fun fact/ })
+    const factBefore = (await factBtn.textContent())?.trim()
+    await factBtn.focus()
     await page.keyboard.press('Enter')
-    const playBtn = await page.getByRole('button', { name: 'Play rotating fun facts' }).count()
-    const factCount = await page.getByRole('list', { name: 'Fun facts about Jess' }).locator('li').count()
-    playBtn === 1 && factCount === 6
-      ? console.log('  ✓ fun facts can be paused by keyboard and are all listed for screen readers')
-      : fail(`fun facts: play button=${playBtn} facts=${factCount}`)
+    await page.waitForTimeout(100)
+    const factAfter = (await factBtn.textContent())?.trim()
+    const announced = await page.getByRole('status').filter({ hasText: 'Fun fact:' }).count()
+    factBefore !== factAfter && announced === 1
+      ? console.log('  ✓ fun fact sticker changes on Enter and announces the new phrase')
+      : fail(`fun facts: before="${factBefore}" after="${factAfter}" announced=${announced}`)
 
     // Progressive disclosure in the intro
     await page.goto(`${BASE}#work`)

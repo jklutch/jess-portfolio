@@ -1,68 +1,43 @@
-import { Pause, Play } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Shuffle } from 'lucide-react'
+import { useState } from 'react'
 
 import { profile } from '@/content'
 
-const INTERVAL_MS = 15_000
-
-function prefersReducedMotion() {
-  try {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  } catch {
-    return false
-  }
-}
-
 /**
- * A sticker on the intro photo that cycles through short fun facts.
+ * A sticker on the intro photo showing a random fun fact on each page load.
+ * Clicking it (or pressing Enter/Space) shows the next one.
  *
  * Accessibility (WCAG 2.1 AA):
- * - 2.2.2 Pause, Stop, Hide: a visible pause/play button controls the rotation, it also
- *   pauses on hover/focus, and it starts paused when the visitor prefers reduced motion.
- * - Screen readers get every fact once as a list instead of hearing the sticker change.
+ * - It only changes when the visitor asks it to, so no pause control is needed (2.2.2).
+ * - It's a real button; its accessible name starts with the visible phrase (2.5.3 Label in Name).
+ * - After a click, the new phrase is announced through a polite live region (4.1.3 Status Messages).
  */
 export function FunFacts() {
   const facts = profile.funFacts
-  const [index, setIndex] = useState(() => Math.max(0, facts.length - 1)) // start on “Also knits!”
-  const [playing, setPlaying] = useState(() => !prefersReducedMotion())
-  const [hovering, setHovering] = useState(false)
+  const [index, setIndex] = useState(() => Math.floor(Math.random() * facts.length))
+  const [announcement, setAnnouncement] = useState('')
 
-  useEffect(() => {
-    if (!playing || hovering || facts.length < 2) return
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % facts.length), INTERVAL_MS)
-    return () => window.clearInterval(id)
-  }, [playing, hovering, facts.length])
+  function next() {
+    const i = (index + 1) % facts.length
+    setIndex(i)
+    setAnnouncement(`Fun fact: ${facts[i]}`)
+  }
 
   return (
-    <div
-      className="absolute -right-2 -bottom-5 flex max-w-[88%] items-end gap-1.5"
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      onFocus={() => setHovering(true)}
-      onBlur={() => setHovering(false)}
-    >
-      <ul className="sr-only" aria-label="Fun facts about Jess">
-        {facts.map((f) => (
-          <li key={f}>{f}</li>
-        ))}
-      </ul>
-
+    <div className="absolute -right-2 -bottom-5 max-w-[88%]">
       <button
         type="button"
-        onClick={() => setPlaying((p) => !p)}
-        aria-label={playing ? 'Pause rotating fun facts' : 'Play rotating fun facts'}
-        className="grid size-8 shrink-0 place-items-center rounded-full border-2 border-border bg-card text-foreground shadow-[2px_2px_0_0_var(--shadow-pop)] outline-none hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        onClick={next}
+        className="group inline-flex -rotate-6 items-center gap-2 rounded-2xl border-2 border-border bg-secondary px-3.5 py-1.5 text-left text-sm leading-snug font-bold text-balance text-secondary-foreground shadow-[3px_3px_0_0_var(--shadow-pop)] transition-transform outline-none hover:rotate-0 focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95"
       >
-        {playing ? <Pause aria-hidden="true" className="size-3.5 fill-current" /> : <Play aria-hidden="true" className="size-3.5 fill-current" />}
-      </button>
-
-      <p
-        aria-hidden="true"
-        className="-rotate-6 rounded-2xl border-2 border-border bg-secondary px-3.5 py-1.5 text-center text-sm leading-snug font-bold text-balance text-secondary-foreground shadow-[3px_3px_0_0_var(--shadow-pop)]"
-      >
-        <span key={index} className="inline-block motion-safe:animate-pop-in">
+        <span key={index} className="motion-safe:animate-pop-in">
           {facts[index]}
         </span>
+        <span className="sr-only"> (show another fun fact)</span>
+        <Shuffle aria-hidden="true" className="size-3.5 shrink-0 opacity-70 transition-transform group-hover:rotate-12" />
+      </button>
+      <p className="sr-only" role="status" aria-live="polite">
+        {announcement}
       </p>
     </div>
   )
