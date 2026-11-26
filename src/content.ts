@@ -140,6 +140,43 @@ export const projects: Project[] = [
         list: ['What is happening with my case?', 'What comes next?', 'Who needs to take action?'],
       },
       {
+        heading: 'Iterating with lo-fi prototypes',
+        body: [
+          'We took an iterative design approach within an agile framework. As the designer on the project, I created low-fidelity prototypes so we could start testing right away with applicants, our end users, and with program partners: state employees with expertise in the critical policy guidelines we needed to follow.',
+          'At the same time, developers on the product team needed to start building. Lo-fi prototypes let us get designs into users’ hands and iterate on their feedback quickly. Developers worked from the same prototypes at first, since the code base already had existing styles.',
+        ],
+        images: [
+          {
+            src: img('cst-lofi-1.webp'),
+            alt: 'Lo-fi wireframes for the case number lookup page. A basic layout lists the title, description, case number field, help, and Check status button. Option 1 asks “What is your case number?” with a “Where do I find my case number?” accordion, shown both collapsed and expanded. Option 2 adds the heading “View the status of your application” and a labeled Case number field, with a note to include the heading for added context.',
+            width: 1206,
+            height: 761,
+            caption: 'Lo-fi options for the case number lookup page (select to enlarge)',
+          },
+          {
+            src: img('cst-lofi-2.webp'),
+            alt: 'Two lo-fi options for the status results. Option 1 is a program dashboard listing SNAP and Cash with their statuses and info accordions. Option 2 lists many programs, including SNAP, Diversionary Work Program, General Assistance, Minnesota Supplemental Aid, Refugee Cash Assistance, and MFIP, then groups them into Food and Cash program pages. Notes from a design office hour and a list of potential user stories sit alongside.',
+            width: 1206,
+            height: 761,
+            caption: 'Lo-fi options for the program dashboard and results (select to enlarge)',
+          },
+          {
+            src: img('cst-handoff.webp'),
+            alt: 'Hand-off and revisions board dated January 9, 2024. Section 1a is the mobile landing page and 1b its error state for the case number lookup. Section 2 shows application status result pages flowing from a program dashboard to Food (SNAP) and Cash program details. Miscellaneous notes include green, yellow, and red status icon examples.',
+            width: 1206,
+            height: 761,
+            caption: 'Hand-off to developers and revisions, January 2024 (select to enlarge)',
+          },
+          {
+            src: img('cst-id-proofing.webp'),
+            alt: 'ID-proofing flow. A Tennessen warning screen explains why basic information is needed to look up the status of an MNbenefits application. A “Confirm your identity” form asks for case number, last name, and birthdate, with a “Where do I find my case number?” accordion shown collapsed and expanded. After submitting, a notional program dashboard greets “Hi, Jess!” and lists Food (SNAP), Cash programs, Housing Support, and Child Care Assistance.',
+            width: 1206,
+            height: 761,
+            caption: 'ID-proofing flow leading to the program dashboard (select to enlarge)',
+          },
+        ],
+      },
+      {
         heading: 'What launched',
         body: [
           'The tracker began as a pilot in July 2025. People can access it “as guest” using three case identifiers, or with their statewide LoginMN account. Both options are available in English and Spanish and meet web accessibility standards.',
