@@ -97,7 +97,15 @@ try {
           document.documentElement.scrollWidth - window.innerWidth,
           ...[...document.querySelectorAll('main *, header *')]
             .filter((el) => !el.closest('.sr-only') && !el.parentElement?.closest('svg'))
-            .map((el) => Math.ceil(el.getBoundingClientRect().right - (window.innerWidth - 16))),
+            .map((el) => {
+              // What's visible is clipped by any ancestor with overflow hidden/clip.
+              let right = el.getBoundingClientRect().right
+              for (let a = el.parentElement; a; a = a.parentElement) {
+                const o = getComputedStyle(a).overflowX
+                if (o === 'hidden' || o === 'clip') right = Math.min(right, a.getBoundingClientRect().right)
+              }
+              return Math.ceil(right - (window.innerWidth - 16))
+            }),
         ),
       )
       overflow > 0 ? fail(`#${tab}${wide ? ' (wide text)' : ''} scrolls horizontally by ${overflow}px`) : console.log(`  ✓ #${tab}${wide ? ' (wide text)' : ''} no horizontal scroll`)

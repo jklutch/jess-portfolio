@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { KnitsTab } from '@/components/knits-tab'
 import { ContactTab } from '@/components/contact-tab'
+import { Sparkle } from '@/components/decor'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ProjectPage } from '@/components/project-page'
@@ -10,20 +11,6 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { WorkTab } from '@/components/work-tab'
 import { profile, projects } from '@/content'
-
-/** A small four-point sparkle, purely decorative. */
-function Sparkle({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={`pointer-events-none ${className ?? ''}`}>
-      <path
-        d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"
-        fill="currentColor"
-        stroke="var(--shadow-pop)"
-        strokeWidth="1"
-      />
-    </svg>
-  )
-}
 
 const TABS = ['work', 'knits', 'contact'] as const
 type Tab = (typeof TABS)[number]
@@ -319,6 +306,16 @@ export default function App() {
               shadcn/ui
             </a>
             , and tested for WCAG 2.1 AA.
+          </p>
+          <p className="mt-2 inline-flex items-center gap-1.5">
+            <Sparkle className="size-3.5 text-secondary" />
+            Built with
+            <a
+              className="rounded font-semibold text-foreground underline outline-none hover:decoration-2 focus-visible:ring-[3px] focus-visible:ring-ring"
+              href="https://claude.com/product/claude-code"
+            >
+              Claude Code
+            </a>
           </p>
         </footer>
       </div>

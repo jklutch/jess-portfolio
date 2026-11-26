@@ -322,15 +322,6 @@ export const projects: Project[] = [
           'An Activity Log to view, sort, and search time records from the web app or SSIS, with running totals so gaps are easy to spot',
           'Editing of submitted entries, plus a Case Load button to add time to another worker’s caseload',
         ],
-        images: [
-          {
-            src: img('time-entry-hero.webp'),
-            alt: 'The Time Entry web app’s Activity Log on a laptop. Totals at the top read 176 hours overall and 3 hours 15 minutes in the current view, above a searchable, filterable grid of time records with columns for service, hours, activity, regarding, and purpose.',
-            width: 860,
-            height: 590,
-            caption: 'The Activity Log on desktop',
-          },
-        ],
       },
       {
         heading: 'Results',
