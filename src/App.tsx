@@ -111,9 +111,11 @@ export default function App() {
           <>
         <section
           aria-labelledby="intro-heading"
-          className="grid items-center gap-12 py-12 sm:py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] lg:min-h-[75vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-20"
+          className="grid gap-x-12 gap-y-10 py-12 sm:py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] md:grid-rows-[auto_auto] md:content-center lg:min-h-[75vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-x-20"
         >
-          <div className="max-w-3xl space-y-8">
+          {/* Order: greeting, photo, then the rest. On phones that stacks the photo right under the
+              greeting; from md up the grid puts the photo in the right-hand column. */}
+          <div className="max-w-3xl md:col-start-1 md:row-start-1 md:self-end">
             <h1
               id="intro-heading"
               className="relative w-fit text-5xl leading-[1.02] font-extrabold tracking-tight sm:text-7xl lg:text-8xl"
@@ -144,6 +146,24 @@ export default function App() {
               <Sparkle className="absolute -top-4 -right-12 hidden size-9 text-secondary sm:block lg:size-11" />
               <Sparkle className="absolute -right-5 bottom-2 hidden size-5 text-accent sm:block" />
             </h1>
+          </div>
+          <div className="relative mx-auto w-full max-w-60 md:col-start-2 md:row-span-2 md:row-start-1 md:max-w-none md:self-center">
+            {/* Decorative confetti behind the photo */}
+            <div aria-hidden="true" className="absolute -top-4 -right-3 size-20 rounded-full bg-secondary" />
+            <div aria-hidden="true" className="absolute -bottom-3 -left-4 size-12 rotate-12 rounded-2xl bg-accent" />
+            <div aria-hidden="true" className="absolute top-1/3 -left-6 size-7 rounded-full bg-pink" />
+            <Sparkle className="absolute -top-8 left-2 size-5 text-primary" />
+            <img
+              src={profile.photo.src}
+              alt={profile.photo.alt}
+              width={profile.photo.width}
+              height={profile.photo.height}
+              fetchPriority="high"
+              className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[6px_6px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
+            />
+            <FunFacts />
+          </div>
+          <div className="max-w-3xl space-y-8 md:col-start-1 md:row-start-2">
             <p className="max-w-2xl font-display text-2xl leading-snug font-bold sm:text-3xl lg:text-4xl lg:leading-tight">
               {profile.tagline.map((part, i) =>
                 'highlight' in part && part.highlight ? (
@@ -246,22 +266,6 @@ export default function App() {
                 </ul>
               </div>
             </div>
-          </div>
-          <div className="relative mx-auto w-full max-w-60 md:max-w-none">
-            {/* Decorative confetti behind the photo */}
-            <div aria-hidden="true" className="absolute -top-4 -right-3 size-20 rounded-full bg-secondary" />
-            <div aria-hidden="true" className="absolute -bottom-3 -left-4 size-12 rotate-12 rounded-2xl bg-accent" />
-            <div aria-hidden="true" className="absolute top-1/3 -left-6 size-7 rounded-full bg-pink" />
-            <Sparkle className="absolute -top-8 left-2 size-5 text-primary" />
-            <img
-              src={profile.photo.src}
-              alt={profile.photo.alt}
-              width={profile.photo.width}
-              height={profile.photo.height}
-              fetchPriority="high"
-              className="relative aspect-[3/4] w-full rotate-2 rounded-[2rem] border-2 border-border object-cover shadow-[6px_6px_0_0_var(--shadow-pop)] transition-transform motion-safe:hover:rotate-0"
-            />
-            <FunFacts />
           </div>
         </section>
 
