@@ -274,6 +274,23 @@ export const projects: Project[] = [
         ],
       },
       {
+        heading: 'Design process',
+        body: [
+          'The team followed an iterative, agile process to build the application, shipping in sprints and adjusting as we learned.',
+          'In between iterations, I helped co-facilitate usability testing sessions, first with Figma prototypes and later in the project with the actual test site. We ran tests with county social workers, our end users, and with internal state staff partners.',
+          'Wireframes like these for the Activity Log mapped out each state of the screen, from empty to filled in, on desktop and mobile, along with the specific components the developers would build.',
+        ],
+        images: [
+          {
+            src: img('tet-activity-log-wireframes.webp'),
+            alt: 'Activity Log wireframes on a dark canvas. An empty-state desktop screen has an arrow labeled “Select Workgroup and Activity; Click Refresh” leading to desktop and narrower layouts of the filled-in log, with hour totals above a table of time records. A tall mobile layout shows the records as stacked cards. A column of specific components includes table filters, a sign-off toggle, buttons, toggle columns, pagination, and a workgroup dropdown.',
+            width: 1460,
+            height: 828,
+            caption: 'Activity Log wireframes: screen states, layouts, and components (select to enlarge)',
+          },
+        ],
+      },
+      {
         heading: 'Built with the people who use it',
         body: [
           'DCYF partnered closely with DHS, MNIT, counties, and frontline staff from the start. Workers tested early versions, shared feedback every two weeks, and saw that feedback shape each iteration. A public project site posted a review after every sprint and gave workers a suggestion box, surveys, a place for questions, and training videos.',
